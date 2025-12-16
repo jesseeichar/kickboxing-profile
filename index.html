@@ -367,7 +367,7 @@
         }
 
         .about-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin-bottom: 2rem;
         }
 
@@ -381,8 +381,8 @@
 
         .about-details {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
             margin-top: 3rem;
             padding-top: 3rem;
             border-top: 1px solid var(--gray-dark);
@@ -421,7 +421,7 @@
         }
 
         .achievements-title {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
         }
 
         .belt-showcase {
@@ -504,7 +504,7 @@
         }
 
         .gallery-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
         }
 
         .gallery-nav {
@@ -599,7 +599,7 @@
         }
 
         .sponsorship-text h2 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin-bottom: 2rem;
         }
 
@@ -678,7 +678,7 @@
         }
 
         .contact-info h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin-bottom: 2rem;
         }
 
@@ -1781,24 +1781,14 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <p class="hero-subtitle">Swiss National Team Athlete</p>
-            <h1 class="hero-title">
-                Eva<span>Tschanz-Eichar</span>
+            <p class="hero-subtitle" style="font-size: 2rem; letter-spacing: 0.15em;">"Tough Cookie"</p>
+            <h1 class="hero-title" style="font-size: clamp(2.5rem, 6vw, 5rem);">
+                Eva Lina<span>Tschanz-Eichar</span>
             </h1>
-            <p class="hero-tagline">Elite kickboxer representing Switzerland on the world stage. Champion. Competitor. Ready for the next challenge.</p>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-number">1</div>
-                    <div class="stat-label">Championship Title</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">CH</div>
-                    <div class="stat-label">Swiss National Team</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">WAKO</div>
-                    <div class="stat-label">International Competition</div>
-                </div>
+            <p class="hero-tagline">Up and coming young Swiss kickboxer with international success, representing skill and ambition.</p>
+            <div class="hero-buttons" style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <a href="#sponsorship" class="cta-button">Become a Sponsor</a>
+                <a href="#contact" class="cta-button" style="background: transparent; color: var(--white); border-color: var(--white);">Contact Me</a>
             </div>
         </div>
         <div class="hero-image">
@@ -1817,26 +1807,32 @@
             <img src="images/web/eva935.jpg" alt="Eva Tschanz fighting stance">
         </div>
         <div class="about-content reveal">
-            <p class="section-label">About Eva</p>
-            <h2 class="about-title">Born to Fight.<br>Built to Win.</h2>
-            <p class="about-text">Eva Tschanz is a rising force in international kickboxing, proudly representing Switzerland at WAKO world championships. With relentless dedication and natural talent, she combines technical precision with explosive power.</p>
-            <p class="about-text">Training with elite coaches and competing against the best in the world, Eva is on a mission to bring glory to Swiss kickboxing while inspiring the next generation of athletes.</p>
+            <h2 class="about-title">About Eva Tschanz-Eichar</h2>
+            <p class="about-text">I believe in consistency, focusing on becoming the best version of myself, enjoying life, and treating everyone with respect and kindness.</p>
             <div class="about-details">
                 <div class="detail-item">
+                    <span class="detail-label">Age</span>
+                    <span class="detail-value">Seventeen</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Nationality</span>
+                    <span class="detail-value">Swiss & Canadian</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Location</span>
+                    <span class="detail-value">Bern, Switzerland</span>
+                </div>
+                <div class="detail-item">
                     <span class="detail-label">Discipline</span>
-                    <span class="detail-value">Kickboxing</span>
+                    <span class="detail-value">K1</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">Federation</span>
-                    <span class="detail-value">WAKO</span>
+                    <span class="detail-label">Gym</span>
+                    <span class="detail-value">Fusion Sports Academy</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">Team</span>
-                    <span class="detail-value">Swiss National</span>
-                </div>
-                <div class="detail-item">
-                    <span class="detail-label">Sponsors</span>
-                    <span class="detail-value">Venum</span>
+                    <span class="detail-label">Competing Since</span>
+                    <span class="detail-value">2024</span>
                 </div>
             </div>
         </div>
