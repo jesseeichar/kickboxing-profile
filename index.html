@@ -427,24 +427,17 @@
         .achievements-carousel {
             display: flex;
             gap: 1.5rem;
-            padding: 2rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .achievements-carousel::-webkit-scrollbar {
-            display: none;
+            padding: 2rem 4rem;
+            justify-content: center;
         }
 
         .achievement-card {
-            flex: 0 0 380px;
+            flex: 1;
+            max-width: 400px;
             min-height: 420px;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--gray-dark);
             padding: 2rem;
-            scroll-snap-align: start;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -1373,15 +1366,14 @@
                 font-size: 15vw;
             }
 
-            .belt-showcase {
-                flex-direction: column;
-                padding: 2rem 3rem;
+            .achievements-carousel {
+                flex-wrap: wrap;
+                padding: 2rem;
             }
 
-            .belt-image {
-                flex: none;
-                width: 100%;
-                max-width: 400px;
+            .achievement-card {
+                flex: 1 1 300px;
+                max-width: none;
             }
 
             .gallery {
@@ -1982,6 +1974,24 @@ World Cup Jesolo (Italy): Lost first fight, but this setback provided crucial mo
                     <strong>Budapest:</strong> Dominant win<br>
                     <strong>Antalya:</strong> TKO victory, faced world champion<br>
                     <strong>Jesolo:</strong> Learning experience - fuel for improvement
+                </div>
+                <div class="card-expand">Click to read more →</div>
+            </div>
+
+            <!-- National Team -->
+            <div class="achievement-card" data-category="National Team" data-title="Swiss National Team" data-location="Switzerland" data-result="A Kader (2025) • B Kader (2024)" data-description="2024: Selected for B Kader of the Swiss National Team, marking the beginning of representing Switzerland at the highest level.
+
+2025: Promoted to A Kader of the Swiss National Team, recognizing continued growth and performance.
+
+Represented Switzerland in multiple international cups and European championships, competing against the best athletes from across Europe.">
+                <div class="card-category">National Team</div>
+                <div class="card-title">Swiss National Team</div>
+                <div class="card-location">Switzerland</div>
+                <div class="card-result">A Kader (2025) • B Kader (2024)</div>
+                <div class="card-preview">
+                    <strong>2024:</strong> B Kader of national team<br>
+                    <strong>2025:</strong> A Kader of national team<br>
+                    Representing Switzerland in international competitions
                 </div>
                 <div class="card-expand">Click to read more →</div>
             </div>
