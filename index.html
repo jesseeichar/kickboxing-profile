@@ -367,6 +367,280 @@
             line-height: 1.8;
         }
 
+        /* Timeline Section */
+        .timeline {
+            padding: 6rem 4rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+        }
+
+        .timeline-container {
+            position: relative;
+            min-width: 1200px;
+            height: 400px;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        .timeline-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .timeline-path {
+            fill: none;
+            stroke: var(--gray-dark);
+            stroke-width: 3;
+        }
+
+        .timeline-path-highlight {
+            fill: none;
+            stroke: var(--red);
+            stroke-width: 3;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 3s ease forwards;
+        }
+
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .timeline-sections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .timeline-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 0;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-section:hover {
+            opacity: 0.8;
+        }
+
+        .timeline-section:nth-child(1) {
+            flex: 1.2;
+        }
+
+        .timeline-section:nth-child(2) {
+            flex: 1.2;
+        }
+
+        .timeline-section:nth-child(3) {
+            flex: 1.6;
+        }
+
+        /* Timeline Zoom States */
+        .timeline-container.zoomed {
+            overflow: hidden;
+        }
+
+        .timeline-zoom-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+            transform-origin: center center;
+        }
+
+        .timeline-container.zoomed .timeline-zoom-wrapper {
+            cursor: zoom-out;
+        }
+
+        .timeline-container.zoom-section-1 .timeline-zoom-wrapper {
+            transform: scale(2.5) translateX(30%);
+        }
+
+        .timeline-container.zoom-section-2 .timeline-zoom-wrapper {
+            transform: scale(2.5) translateX(0%);
+        }
+
+        .timeline-container.zoom-section-3 .timeline-zoom-wrapper {
+            transform: scale(2.5) translateX(-25%);
+        }
+
+        .timeline-zoom-hint {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--gray);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .timeline-container:not(.zoomed) .timeline-zoom-hint {
+            opacity: 1;
+        }
+
+        .timeline-container.zoomed .timeline-zoom-hint {
+            opacity: 0;
+        }
+
+        .timeline-zoom-out {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .timeline-container.zoomed .timeline-zoom-out {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .timeline-zoom-out:hover {
+            background: var(--red-dark);
+        }
+
+        .timeline-section .section-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 0.25rem;
+            padding-left: 1rem;
+            position: absolute;
+            top: -3rem;
+        }
+
+        .timeline-section .section-subtitle {
+            font-size: 0.75rem;
+            color: var(--gray);
+            padding-left: 1rem;
+            position: absolute;
+            top: -1.75rem;
+        }
+
+        .timeline-point {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .point-dot {
+            width: 14px;
+            height: 14px;
+            background: var(--red);
+            border-radius: 50%;
+            border: 3px solid var(--black);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .point-dot:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 15px var(--red);
+        }
+
+        .point-label {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 0.75rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .point-label.above {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .point-label.below {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 0.75rem;
+            text-align: center;
+        }
+
+        .point-year {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .point-dot.future {
+            background: transparent;
+            border: 3px solid var(--red);
+        }
+
+        .point-dot.goal {
+            background: transparent;
+            border: 3px solid var(--gray);
+        }
+
+        .point-label.goal-label {
+            color: var(--gray);
+        }
+
+        .timeline-goal-box {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: right;
+        }
+
+        .goal-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .goal-items {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
         /* About Section */
         .about {
             padding: 10rem 6rem;
@@ -1366,6 +1640,10 @@
                 padding: 6rem 3rem;
             }
 
+            .timeline {
+                padding: 6rem 2rem;
+            }
+
             .gallery {
                 padding: 6rem 3rem;
             }
@@ -1617,6 +1895,40 @@
                 font-size: 1rem;
             }
 
+            /* Timeline Mobile */
+            .timeline {
+                padding: 4rem 1.25rem;
+            }
+
+            .timeline-container {
+                min-width: 900px;
+                height: 350px;
+            }
+
+            .section-title {
+                font-size: 0.75rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .point-label {
+                font-size: 0.65rem;
+            }
+
+            .point-year {
+                font-size: 0.55rem;
+            }
+
+            .goal-title {
+                font-size: 1.2rem;
+            }
+
+            .goal-items {
+                font-size: 0.75rem;
+            }
+
             /* Gallery Mobile */
             .gallery {
                 padding: 4rem 1.25rem;
@@ -1854,6 +2166,7 @@
             <li><a href="#about">Tough Cookie</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#kickboxing">Kickboxing</a></li>
+            <li><a href="#journey">My Journey</a></li>
             <li><a href="#achievements">Achievements</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#sponsorship">Sponsor Info</a></li>
@@ -1873,6 +2186,7 @@
         <a href="#about">Tough Cookie</a>
         <a href="#education">Education</a>
         <a href="#kickboxing">Kickboxing</a>
+        <a href="#journey">My Journey</a>
         <a href="#achievements">Achievements</a>
         <a href="#gallery">Gallery</a>
         <a href="#sponsorship">Sponsor Info</a>
@@ -1961,6 +2275,133 @@
             <p>Alongside my athletic ambitions, I'm interested in studying Computer Science or Engineering.</p>
             <p>I've completed the Swiss J+S instructor course and coach children's classes at my gym.</p>
             <p>As a role model for young girls in combat sports, I strive to inspire them to follow their own path and gain confidence through discipline and hard work.</p>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline" id="journey">
+        <div class="timeline-header reveal">
+            <p class="section-label">My Journey</p>
+            <h2 class="timeline-title">The Path Forward</h2>
+        </div>
+        <div class="timeline-container reveal" id="timelineContainer">
+            <!-- Zoom Out Button -->
+            <button class="timeline-zoom-out" id="timelineZoomOut">← Zoom Out</button>
+
+            <!-- Zoom Wrapper -->
+            <div class="timeline-zoom-wrapper" id="timelineZoomWrapper">
+                <!-- SVG Wave Path - Dramatic waves with clear peaks/troughs -->
+                <svg class="timeline-svg" viewBox="0 0 1200 400" preserveAspectRatio="none">
+                    <!-- Background path -->
+                    <path class="timeline-path" d="
+                        M 0,200
+                        Q 75,60 150,200
+                        Q 225,340 300,200
+                        Q 450,60 600,200
+                        Q 750,340 900,200
+                        Q 1050,100 1200,200
+                    " />
+                    <!-- Highlighted path (animated) - past achievements -->
+                    <path class="timeline-path-highlight" d="
+                        M 0,200
+                        Q 75,60 150,200
+                        Q 225,340 300,200
+                    " />
+                </svg>
+
+                <!-- Section Labels (clickable for zoom) -->
+                <div class="timeline-sections">
+                    <div class="timeline-section" data-section="1">
+                        <div class="section-title">The Journey So Far</div>
+                        <div class="section-subtitle">2021 - 2025</div>
+                    </div>
+                    <div class="timeline-section" data-section="2">
+                        <div class="section-title">2026 Goals</div>
+                        <div class="section-subtitle">Next Chapter</div>
+                    </div>
+                    <div class="timeline-section" data-section="3">
+                        <div class="section-title">Long-Term Vision</div>
+                        <div class="section-subtitle">The Dream</div>
+                    </div>
+                </div>
+
+                <!-- Timeline Points - Past Achievements (on the line) -->
+                <div class="timeline-point" style="left: 0%; top: 50%;">
+                    <div class="point-dot"></div>
+                    <div class="point-label above">
+                        Started Training
+                        <span class="point-year">2021</span>
+                    </div>
+                </div>
+
+                <div class="timeline-point" style="left: 6.25%; top: 32.5%;">
+                    <div class="point-dot"></div>
+                    <div class="point-label above">
+                        First Competition
+                        <span class="point-year">2023</span>
+                    </div>
+                </div>
+
+                <div class="timeline-point" style="left: 12.5%; top: 50%;">
+                    <div class="point-dot"></div>
+                    <div class="point-label below">
+                        Swiss Champion
+                        <span class="point-year">2024</span>
+                    </div>
+                </div>
+
+                <div class="timeline-point" style="left: 18.75%; top: 67.5%;">
+                    <div class="point-dot"></div>
+                    <div class="point-label below">
+                        National Team
+                        <span class="point-year">2024</span>
+                    </div>
+                </div>
+
+                <div class="timeline-point" style="left: 25%; top: 50%;">
+                    <div class="point-dot"></div>
+                    <div class="point-label above">
+                        European Champion
+                        <span class="point-year">2025</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Points - 2026 Goals (on the line) -->
+                <div class="timeline-point" style="left: 37.5%; top: 32.5%;">
+                    <div class="point-dot future"></div>
+                    <div class="point-label above">
+                        First Pro Fight
+                        <span class="point-year">2026</span>
+                    </div>
+                </div>
+
+                <div class="timeline-point" style="left: 50%; top: 50%;">
+                    <div class="point-dot future"></div>
+                    <div class="point-label below">
+                        Junior World<br>Championships
+                        <span class="point-year">2026</span>
+                    </div>
+                </div>
+
+                <div class="timeline-point" style="left: 62.5%; top: 67.5%;">
+                    <div class="point-dot future"></div>
+                    <div class="point-label below">
+                        Seniors European<br>Championships
+                        <span class="point-year">2026</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Points - Long-term Goals (on the line) -->
+                <div class="timeline-point" style="left: 87.5%; top: 37.5%;">
+                    <div class="point-dot goal"></div>
+                    <div class="point-label above goal-label">
+                        ONE Championship
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zoom Hint -->
+            <div class="timeline-zoom-hint">Click on a section to zoom in</div>
         </div>
     </section>
 
@@ -2253,6 +2694,44 @@ SCOS Championships: After a full year of qualifications, won most of them to qua
         window.printPortfolio = () => {
             window.print();
         };
+
+        // Timeline Zoom functionality
+        const timelineContainer = document.getElementById('timelineContainer');
+        const timelineZoomOut = document.getElementById('timelineZoomOut');
+        const timelineSections = document.querySelectorAll('.timeline-section');
+
+        function zoomToSection(sectionNum) {
+            timelineContainer.classList.add('zoomed', `zoom-section-${sectionNum}`);
+        }
+
+        function zoomOut() {
+            timelineContainer.classList.remove('zoomed', 'zoom-section-1', 'zoom-section-2', 'zoom-section-3');
+        }
+
+        timelineSections.forEach(section => {
+            section.addEventListener('click', (e) => {
+                if (!timelineContainer.classList.contains('zoomed')) {
+                    const sectionNum = section.dataset.section;
+                    zoomToSection(sectionNum);
+                }
+            });
+        });
+
+        timelineZoomOut.addEventListener('click', zoomOut);
+
+        // Click on zoomed wrapper to zoom out
+        document.getElementById('timelineZoomWrapper').addEventListener('click', (e) => {
+            if (timelineContainer.classList.contains('zoomed') && !e.target.closest('.timeline-section')) {
+                zoomOut();
+            }
+        });
+
+        // Escape key to zoom out
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && timelineContainer.classList.contains('zoomed')) {
+                zoomOut();
+            }
+        });
 
         // Achievement Modal functionality
         const achievementModal = document.getElementById('achievementModal');
