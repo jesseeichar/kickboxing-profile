@@ -15,6 +15,7 @@ This is a static portfolio website for Eva Tschanz, a Swiss kickboxing champion.
 ## Testing
 
 **Important:** Run tests after every change and fix any failures before considering work complete.
+After each change, if there was a functional change, ask the user if new tests should be added to test the new functionality
 
 ```bash
 npm test
