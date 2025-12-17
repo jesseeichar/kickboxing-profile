@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static portfolio website for Eva Tschanz, a Swiss kickboxing champion. The site is a single-page HTML application located in `claude_take-1/index.html` with no build system or JavaScript framework.
+This is a static portfolio website for Eva Tschanz, a Swiss kickboxing champion. The site is a single-page HTML application located in `index.html` with no build system or JavaScript framework.
 
 ## Architecture
 
-- **Single HTML file**: All HTML, CSS, and JavaScript is contained in `claude_take-1/index.html`
+- **Single HTML file**: All HTML, CSS, and JavaScript is contained in `index.html`
 - **No build process**: Site can be served directly by any static file server
 - **Images**: Located in `images/` directory with web-optimized versions in `images/web/` and thumbnails in `images/thumbnails/`
 
@@ -17,8 +17,20 @@ This is a static portfolio website for Eva Tschanz, a Swiss kickboxing champion.
 To preview the site locally, serve the files with any static HTTP server:
 ```bash
 python3 -m http.server 8000
-# Then open http://localhost:8000/claude_take-1/
+# Then open http://localhost:8000/
 ```
+
+## Testing
+
+**Important:** Run tests after every change and fix any failures before considering work complete.
+
+```bash
+npm test           # Run all tests headlessly
+npm run test:headed  # Run with visible browser
+npm run test:ui      # Interactive UI mode for debugging
+```
+
+Tests are located in `tests/` and use Playwright. The test configuration automatically starts a local server on port 8000.
 
 ## Image Processing
 
