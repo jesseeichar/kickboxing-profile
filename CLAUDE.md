@@ -12,48 +12,26 @@ This is a static portfolio website for Eva Tschanz, a Swiss kickboxing champion.
 - **No build process**: Site can be served directly by any static file server
 - **Images**: Located in `images/` directory with web-optimized versions in `images/web/` and thumbnails in `images/thumbnails/`
 
-## Development
-
-To preview the site locally, serve the files with any static HTTP server:
-```bash
-python3 -m http.server 8000
-# Then open http://localhost:8000/
-```
-
 ## Testing
 
 **Important:** Run tests after every change and fix any failures before considering work complete.
 
 ```bash
-npm test           # Run all tests headlessly
-npm run test:headed  # Run with visible browser
-npm run test:ui      # Interactive UI mode for debugging
-```
-
-Tests are located in `tests/` and use Playwright. The test configuration automatically starts a local server on port 8000.
-
-## Image Processing
-
-Two shell scripts in `images/` handle image optimization (requires macOS `sips` command):
-
-- `make_thumbnails.sh` - Creates 300px thumbnails in `images/thumbnails/`
-- `optimize_for_web.sh` - Creates 1600px web-optimized images in `images/web/`
-
-Run from the `images/` directory:
-```bash
-cd images && ./make_thumbnails.sh
-cd images && ./optimize_for_web.sh
+npm test
 ```
 
 ## Key Sections
 
-The HTML file contains these main sections:
-- Hero with animated stats
-- About section with athlete bio
-- Achievements timeline
-- Photo gallery grid
-- Sponsorship call-to-action
-- Contact form
+The HTML file contains these main sections (each with an anchor ID):
+- `#hero` - Hero with animated stats
+- `#about` - About section with athlete bio
+- `#kickboxing` - Kickboxing background
+- `#education` - Education information
+- `#achievements` - Achievements timeline
+- `#gallery` - Photo gallery grid
+- `#sponsorship` - Sponsorship call-to-action
+- `#contact` - Contact form
+- `#footer` - Footer
 
 ## CSS Architecture
 
@@ -68,3 +46,11 @@ The HTML file contains these main sections:
 - Mobile menu toggle with keyboard accessibility (Escape to close)
 - Scroll-reveal animations for sections
 - Smooth scroll for anchor links
+
+## Images
+Images are stored as follows:
+- images/ - contains the original version, shouldn't be used in website, only for generating web and thumbnail verions
+- images/web/ - the web-optimized images that should be used when adding images to the website
+- images/thumbnails/ - a miniature version of the original folders.  The files are prefixed with thumb_.  To find the image to use, strip thumb_ from the file name and look in the images/web/ directory for the corresponding image
+
+When looking for images to use for the website, look in the thumbnails folder for the small versions to analyze then add the web version to the website
