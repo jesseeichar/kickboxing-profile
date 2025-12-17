@@ -395,7 +395,12 @@
         .timeline {
             padding: 6rem 4rem;
             overflow-x: auto;
-            overflow-y: hidden;
+            overflow-y: visible;
+            position: relative;
+        }
+
+        .timeline.zoomed-active {
+            overflow: visible;
         }
 
         .timeline-header {
@@ -481,7 +486,7 @@
 
         /* Timeline Zoom States */
         .timeline-container.zoomed {
-            overflow: hidden;
+            overflow: visible;
         }
 
         .timeline-zoom-wrapper {
@@ -499,15 +504,21 @@
         }
 
         .timeline-container.zoom-section-1 .timeline-zoom-wrapper {
-            transform: scale(2.5) translateX(30%);
+            transform: scale(2) translateX(42%) translateY(10%);
         }
 
         .timeline-container.zoom-section-2 .timeline-zoom-wrapper {
-            transform: scale(2.5) translateX(0%);
+            transform: scale(2) translateX(8%) translateY(10%);
         }
 
         .timeline-container.zoom-section-3 .timeline-zoom-wrapper {
-            transform: scale(2.5) translateX(-25%);
+            transform: scale(2) translateX(-30%) translateY(10%);
+        }
+
+        /* Make labels more visible when zoomed */
+        .timeline-container.zoomed .point-label {
+            font-size: 0.6rem;
+            white-space: nowrap;
         }
 
         .timeline-zoom-hint {
@@ -2420,7 +2431,7 @@
                 <div class="timeline-point" style="left: 50%; top: 50%;">
                     <div class="point-dot future"></div>
                     <div class="point-label below">
-                        Junior World<br>Championships
+                        Junior World Championships
                         <span class="point-year">2026</span>
                     </div>
                 </div>
@@ -2428,7 +2439,7 @@
                 <div class="timeline-point" style="left: 62.5%; top: 67.5%;">
                     <div class="point-dot future"></div>
                     <div class="point-label below">
-                        Seniors European<br>Championships
+                        Seniors European Championships
                         <span class="point-year">2026</span>
                     </div>
                 </div>
@@ -2742,12 +2753,16 @@ SCOS Championships: After a full year of qualifications, won most of them to qua
         const timelineZoomOut = document.getElementById('timelineZoomOut');
         const timelineSections = document.querySelectorAll('.timeline-section');
 
+        const timelineSection = document.getElementById('journey');
+
         function zoomToSection(sectionNum) {
             timelineContainer.classList.add('zoomed', `zoom-section-${sectionNum}`);
+            timelineSection.classList.add('zoomed-active');
         }
 
         function zoomOut() {
             timelineContainer.classList.remove('zoomed', 'zoom-section-1', 'zoom-section-2', 'zoom-section-3');
+            timelineSection.classList.remove('zoomed-active');
         }
 
         timelineSections.forEach(section => {
