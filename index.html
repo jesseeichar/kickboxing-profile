@@ -367,6 +367,30 @@
             line-height: 1.8;
         }
 
+        /* Full-width Section (background spans full screen, content centered) */
+        .section-fullwidth {
+            width: 100%;
+            padding: 6rem 6rem;
+        }
+
+        .section-fullwidth-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-fullwidth h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+        }
+
+        .section-fullwidth p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
         /* Timeline Section */
         .timeline {
             padding: 6rem 4rem;
@@ -1640,6 +1664,10 @@
                 padding: 6rem 3rem;
             }
 
+            .section-fullwidth {
+                padding: 6rem 3rem;
+            }
+
             .timeline {
                 padding: 6rem 2rem;
             }
@@ -1892,6 +1920,20 @@
             }
 
             .content-section p {
+                font-size: 1rem;
+            }
+
+            /* Full-width Section Mobile */
+            .section-fullwidth {
+                padding: 4rem 1.25rem;
+            }
+
+            .section-fullwidth h2 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .section-fullwidth p {
                 font-size: 1rem;
             }
 
@@ -2267,8 +2309,8 @@
     </section>
 
     <!-- Education Section -->
-    <section class="content-section section-alt" id="education">
-        <div class="reveal">
+    <section class="section-fullwidth section-alt" id="education">
+        <div class="section-fullwidth-content reveal">
             <p class="section-label">Beyond the Ring</p>
             <h2>Education & Goals</h2>
             <p>Outside the ring, I attend the Neufeld Sports Gymnasium in Bern, aiming for a career as a professional kickboxer with the long-term goal of the Olympic Games.</p>
