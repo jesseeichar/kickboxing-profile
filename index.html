@@ -2198,6 +2198,16 @@
                 display: none;
             }
 
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.5rem;
+            }
+
             /* Hero Mobile */
             .hero {
                 min-height: 100vh;
@@ -2813,6 +2823,11 @@
             <li><a href="#contact">Contacts</a></li>
         </ul>
         <a href="#contact" class="nav-cta">Partner With Me</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
     <!-- Sidebar Navigation -->
