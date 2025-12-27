@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 
 const menuItems = [
-  { label: 'Tough Cookie', targetId: 'about' },
-  { label: 'Education', targetId: 'education' },
-  { label: 'Kickboxing', targetId: 'kickboxing' },
+  { label: 'About Me', targetId: 'about' },
   { label: 'Achievements', targetId: 'achievements' },
-  { label: 'Gallery', targetId: 'gallery' },
-  { label: 'Sponsor Info', targetId: 'sponsorship' },
-  { label: 'Contact', targetId: 'contact' },
+  { label: 'My Plan', targetId: 'budget' },
+  { label: 'Contacts', targetId: 'contact' },
 ];
+
+// Set mobile viewport for all sidebar navigation tests since hamburger menu is only visible at mobile breakpoints
+test.use({ viewport: { width: 375, height: 667 } });
 
 test.describe('Sidebar Navigation', () => {
   test('hamburger menu should be visible', async ({ page }) => {
@@ -112,27 +112,15 @@ test.describe('Keyboard Navigation', () => {
 });
 
 test.describe('Hero CTA Navigation', () => {
-  test('Become a Sponsor button navigates to sponsorship section', async ({ page }) => {
+  test('Become a Sponsor link navigates to sponsorship section', async ({ page }) => {
     await page.goto('/');
 
-    const ctaButton = page.locator('.hero-buttons a[href="#sponsorship"]');
-    await ctaButton.click();
+    const ctaLink = page.locator('.hero-sponsor-link');
+    await ctaLink.click();
 
     await page.waitForTimeout(600);
 
     const section = page.locator('#sponsorship');
-    await expect(section).toBeInViewport({ ratio: 0.1 });
-  });
-
-  test('Contact Me button navigates to contact section', async ({ page }) => {
-    await page.goto('/');
-
-    const ctaButton = page.locator('.hero-buttons a[href="#contact"]');
-    await ctaButton.click();
-
-    await page.waitForTimeout(600);
-
-    const section = page.locator('#contact');
     await expect(section).toBeInViewport({ ratio: 0.1 });
   });
 });
