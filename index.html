@@ -51,33 +51,34 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1.5rem 3rem;
+            padding: 0.75rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
-            transition: background 0.3s ease;
+            background: var(--black);
+            border-bottom: 1px solid var(--gray-dark);
         }
 
         nav.scrolled {
-            background: rgba(10,10,10,0.98);
-            backdrop-filter: blur(10px);
+            background: var(--black);
         }
 
         .logo {
             font-family: 'Anton', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             letter-spacing: 0.1em;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .logo .swiss-cross {
-            width: 28px;
-            height: 28px;
-            background: var(--red);
-            position: relative;
+            display: none;
+        }
+
+        .logo-img {
+            height: 65px;
+            width: auto;
         }
 
         .logo .swiss-cross::before,
@@ -102,20 +103,42 @@
         }
 
         .nav-links {
-            display: none;
+            display: flex;
+            list-style: none;
+            gap: 3.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--red);
         }
 
         .nav-cta {
-            display: none;
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--red);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--white);
         }
 
         .menu-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 10px;
+            display: none;
         }
 
         .menu-toggle span {
@@ -2780,43 +2803,25 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="logo">
-            <div class="swiss-cross"></div>
+            <img src="images/tough_cookie_bicep_no_bg.png" alt="Tough Cookie Logo" class="logo-img">
             <span>Eva Tschanz-Eichar</span>
         </div>
         <ul class="nav-links">
-            <li><a href="#about">Tough Cookie</a></li>
-            <li><a href="#values">Values</a></li>
-            <li><a href="#kickboxing">Kickboxing</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#journey">My Journey</a></li>
+            <li><a href="#about">About Me</a></li>
             <li><a href="#achievements">Achievements</a></li>
-            <li><a href="#budget">Budget</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#sponsorship">Sponsor Info</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#budget">My Plan</a></li>
+            <li><a href="#contact">Contacts</a></li>
         </ul>
-        <a href="#sponsorship" class="nav-cta">Partner With Me</a>
-        <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <a href="#contact" class="nav-cta">Partner With Me</a>
     </nav>
 
     <!-- Sidebar Navigation -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="sidebar-nav" id="sidebarNav">
-        <a href="#about">Tough Cookie</a>
-        <a href="#values">Values</a>
-        <a href="#kickboxing">Kickboxing</a>
-        <a href="#education">Education</a>
-        <a href="#journey">My Journey</a>
+        <a href="#about">About Me</a>
         <a href="#achievements">Achievements</a>
-        <a href="#budget">Budget</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#sponsorship">Sponsor Info</a>
-        <a href="#contact">Contact</a>
-        <a href="#sponsorship" class="sidebar-cta">Partner With Me</a>
+        <a href="#budget">My Plan</a>
+        <a href="#contact">Contacts</a>
     </div>
 
     <!-- Hero Section -->
