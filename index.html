@@ -125,7 +125,7 @@
             display: inline-block;
             padding: 0.75rem 1.5rem;
             background: var(--red);
-            color: var(--black);
+            color: #6d7698;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.85rem;
@@ -280,6 +280,20 @@
         .hero-image-right {
             opacity: 0;
             animation: slideUp 0.8s ease 1.3s forwards;
+            position: relative;
+        }
+
+        .hero-image-left::after,
+        .hero-image-right::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom, transparent 0%, #000000 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .hero-image-left {
@@ -290,8 +304,7 @@
         .hero-image-right img {
             width: 100%;
             height: auto;
-            mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+            display: block;
         }
 
         .flipped {
@@ -326,7 +339,7 @@
             display: inline-block;
             padding: 1rem 2.5rem;
             background: var(--red);
-            color: var(--black);
+            color: #6d7698;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
@@ -1350,7 +1363,7 @@
 
         .sponsor-cta {
             display: inline-block;
-            color: var(--white);
+            color: #6d7698;
             padding: 1rem 0;
             text-decoration: none;
             font-weight: 500;
@@ -1479,7 +1492,7 @@
 
         .budget-cta {
             display: inline-block;
-            color: var(--white);
+            color: #6d7698;
             text-decoration: none;
             font-weight: 500;
             font-size: 1rem;
