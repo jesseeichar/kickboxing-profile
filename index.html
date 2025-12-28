@@ -13,6 +13,8 @@
             --dark: #000000;
             --red: #6d7698;
             --red-dark: #5a6380;
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
             --white: #8B1E1E;
             --gray: #8B1E1E;
             --gray-dark: #1a1a1a;
@@ -238,7 +240,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0;
         }
 
         .hero-title {
@@ -297,7 +299,7 @@
         }
 
         .hero-image-left {
-            margin-top: 4rem;
+            margin-top: -2rem;
         }
 
         .hero-image-left img,
@@ -323,6 +325,8 @@
             flex-direction: row;
             gap: 1rem;
             margin-bottom: 2rem;
+            margin-top: 2rem;
+            margin-left: 25rem;
             opacity: 0;
             animation: slideUp 0.8s ease 0.9s forwards;
         }
@@ -345,6 +349,7 @@
             font-size: 1rem;
             letter-spacing: 0.05em;
             transition: all 0.3s ease;
+            margin-left: 25rem;
             opacity: 0;
             animation: slideUp 0.8s ease 1.1s forwards;
         }
@@ -708,7 +713,7 @@
 
         /* About Section */
         .about {
-            padding: 12rem 6rem 10rem;
+            padding: 4rem 6rem 10rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -725,7 +730,7 @@
 
         .about-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
 
         .about-icon {
@@ -784,7 +789,7 @@
             grid-template-columns: 1fr 1.5fr;
             gap: 3rem;
             align-items: start;
-            padding-top: 3rem;
+            padding-top: 1rem;
             border-top: 1px solid var(--gray-dark);
         }
 
@@ -832,7 +837,7 @@
         .about-cta {
             display: block;
             background: transparent;
-            color: var(--white);
+            color: #6d7698;
             padding: 1rem 0;
             text-decoration: none;
             font-weight: 500;
@@ -2826,18 +2831,16 @@
             <h1 class="hero-title">Eva Lina Tschanz-Eichar</h1>
             <p class="hero-subtitle">Tough Cookie</p>
             <p class="hero-tagline">Up and coming young Swiss kickboxer with international success, representing skill and ambition on the world stage.</p>
+            <div class="hero-badges">
+                <div class="hero-badge">European Champion</div>
+                <div class="hero-badge">2x Swiss Champion</div>
+                <div class="hero-badge">National Team</div>
+            </div>
+            <a href="#contact" class="hero-cta">Sponsor Me</a>
         </div>
         <div class="hero-bottom">
             <div class="hero-image-left">
                 <img src="images/eva814.jpg" alt="Eva Tschanz">
-            </div>
-            <div class="hero-center">
-                <div class="hero-badges">
-                    <div class="hero-badge">European Champion</div>
-                    <div class="hero-badge">2x Swiss Champion</div>
-                    <div class="hero-badge">National Team</div>
-                </div>
-                <a href="#contact" class="hero-cta">Sponsor Me</a>
             </div>
         </div>
     </section>
