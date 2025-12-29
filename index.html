@@ -127,7 +127,7 @@
             display: inline-block;
             padding: 0.75rem 1.5rem;
             background: var(--red);
-            color: #6d7698;
+            color: white;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.85rem;
@@ -339,7 +339,7 @@
             display: inline-block;
             padding: 1rem 2.5rem;
             background: var(--red);
-            color: #6d7698;
+            color: white;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
@@ -865,23 +865,19 @@
         .values-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0;
-            border: 1px solid var(--gray-dark);
+            gap: 1rem;
         }
 
         .value-item {
             padding: 2rem;
-            border-right: 1px solid var(--gray-dark);
-            border-bottom: 1px solid var(--gray-dark);
+            background: hsl(220, 100%, 94%);
         }
 
         .value-item:nth-child(2n) {
-            border-right: none;
         }
 
         .value-item:nth-child(5),
         .value-item:nth-child(6) {
-            border-bottom: none;
         }
 
         .value-icon {
@@ -1067,8 +1063,8 @@
         .achievement-card {
             flex: 1;
             min-height: 420px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--gray-dark);
+            background: hsl(220, 100%, 94%);
+            border: none;
             padding: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1078,8 +1074,7 @@
         }
 
         .achievement-card:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: var(--red);
+            background: hsl(220, 100%, 91%);
             transform: translateY(-5px);
         }
 
@@ -1426,12 +1421,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--gray-dark);
+            padding: 1.5rem;
+            background: hsl(220, 100%, 94%);
+            margin-bottom: 1rem;
         }
 
         .budget-item:first-child {
-            border-top: 1px solid var(--gray-dark);
         }
 
         .budget-item-info h3 {
