@@ -16,7 +16,9 @@
       "Bash(powershell -Command \"npm test\")",
       "Bash(where npm:*)",
       "Bash(npm install)",
-      "Bash(npx playwright install)"
+      "Bash(npx playwright install)",
+      "Bash(bash make_thumbnails.sh:*)",
+      "Bash(bash:*)"
     ]
   }
 }

@@ -1685,7 +1685,7 @@
         }
 
         .contact-link:hover {
-            background: var(--blue-dark);
+            background: #E2EAFD;
             transform: translateX(10px);
         }
 
@@ -3562,7 +3562,7 @@ SCOS Championships: After a full year of qualifications, won most of them to qua
             <a href="#about">About Me</a>
             <a href="#achievements">Achievements</a>
             <a href="#journey">Timeline</a>
-            <a href="#budget">My Journey</a>
+            <a href="#journey">My Journey</a>
             <a href="#education">Education</a>
             <a href="#kickboxing">Kickboxing</a>
             <a href="#values">Values</a>
@@ -3676,9 +3676,14 @@ SCOS Championships: After a full year of qualifications, won most of them to qua
                 const href = this.getAttribute('href');
                 const target = document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Get navbar height
+                    const navbarHeight = navbar.offsetHeight;
+                    // Get target position
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    // Scroll to position minus navbar height
+                    window.scrollTo({
+                        top: targetPosition - navbarHeight,
+                        behavior: 'smooth'
                     });
                     // Update URL hash without jumping
                     history.pushState(null, null, href);

@@ -40,6 +40,27 @@
             padding: 1rem 2rem;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-brand-text {
+            color: var(--cream);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
         }
 
         nav ul {
@@ -66,8 +87,8 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(45, 80, 22, 0.3), rgba(45, 80, 22, 0.5)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%238b9d77" width="1200" height="600"/><path fill="%232d5016" opacity="0.3" d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>');
+            background: linear-gradient(rgba(45, 80, 22, 0.4), rgba(45, 80, 22, 0.6)),
+                        url('../images/web/WhatsApp Image 2025-12-31 at 01.42.00.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -170,9 +191,133 @@
             padding: 2rem;
         }
 
+        /* Horses Section */
+        .horses {
+            background-color: var(--cream);
+        }
+
+        .horse-group {
+            margin-top: 3rem;
+        }
+
+        .horse-group:first-child {
+            margin-top: 2rem;
+        }
+
+        .horse-group h3 {
+            color: var(--earth-brown);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .horses-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .horse-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--sage-green);
+            transition: border-color 0.3s ease;
+        }
+
+        .horse-card:hover {
+            border-color: var(--forest-green);
+        }
+
+        .horse-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: var(--white);
+            transition: background-color 0.3s ease;
+        }
+
+        .horse-header:hover {
+            background-color: var(--cream);
+        }
+
+        .horse-card.expanded .horse-header {
+            background-color: var(--cream);
+        }
+
+        .horse-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .horse-title-section {
+            flex: 1;
+        }
+
+        .horse-card h4 {
+            color: var(--forest-green);
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .expand-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            color: var(--forest-green);
+            flex-shrink: 0;
+        }
+
+        .horse-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .horse-summary {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .horse-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            font-size: 1rem;
+            color: var(--dark-gray);
+            line-height: 1.8;
+            padding: 0 1.5rem;
+        }
+
+        .horse-card.expanded .horse-details {
+            max-height: 600px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .horse-details p {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .horse-details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .horse-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem auto;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
         /* Experience Section */
         .experience {
-            background-color: var(--cream);
+            background-color: var(--white);
         }
 
         .experience-grid {
@@ -293,13 +438,22 @@
             color: var(--cream);
             font-size: 1.5rem;
             cursor: pointer;
-            position: absolute;
-            right: 2rem;
-            top: 1rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+            }
+
+            .nav-logo {
+                height: 40px;
+            }
+
+            .nav-brand-text {
+                font-size: 1.2rem;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -313,6 +467,7 @@
                 flex-direction: column;
                 gap: 1rem;
                 padding: 1rem 0;
+                width: 100%;
             }
 
             nav ul.active {
@@ -350,10 +505,15 @@
 <body>
     <!-- Navigation -->
     <nav>
+        <div class="nav-brand">
+            <img src="../images/ChatGPT Image Jan 5, 2026, 10_38_09 AM.png" alt="Spud Lake Ranch Logo" class="nav-logo">
+            <span class="nav-brand-text">Spud Lake Ranch</span>
+        </div>
         <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#horses">Horses</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -391,6 +551,178 @@
             </div>
             <div class="about-image">
                 <p>Scenic ranch landscape<br>coming soon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horses Section -->
+    <section id="horses" class="horses">
+        <h2>Meet Our Herd</h2>
+        <p>The heart and soul of Spud Lake Ranch—our beloved horses, each with their own unique personality</p>
+
+        <div class="horse-group">
+            <h3>The "Oldies" Group</h3>
+            <div class="horses-grid">
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">🐴</div>
+                        <div class="horse-title-section">
+                            <h4>Pepper - The Matriarch</h4>
+                            <p class="horse-summary">At 30+ years old, Pepper runs the ranch on pure spite and senior feed.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <img src="../images/web/WhatsApp Image 2025-12-30 at 01.43.10.jpeg" alt="Pepper the Matriarch" class="horse-image">
+                        <p>This wise mare is the undisputed authority figure of the herd. What she lacks in smooth movement, she makes up for in commanding presence and sheer determination.</p>
+                        <p>Affectionately known as the "Laundry Drying Rack" for her distinctive gait, Pepper has earned her place as matriarch through decades of ranch life. She sets the rules, and the other horses know it.</p>
+                        <p><strong>Age:</strong> 30+ years<br>
+                        <strong>Personality:</strong> Authoritative, stubborn, wise<br>
+                        <strong>Special Diet:</strong> Senior feed and determination</p>
+                    </div>
+                </div>
+
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">❤️</div>
+                        <div class="horse-title-section">
+                            <h4>Tali/Taliban - The Heart Horse</h4>
+                            <p class="horse-summary">The "Reformed Suicide Bomber" and soul of the ranch.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <img src="../images/web/WhatsApp Image 2025-12-30 at 01.43.14.jpeg" alt="Tali/Taliban the Heart Horse" class="horse-image">
+                        <p>Once an athletic powerhouse who could jump round pens with ease, Tali's wild days are behind him—but his spirit remains unbroken.</p>
+                        <p>After surviving two shoulder injuries that would have ended most horses, Tali has become the emotional heart of Spud Lake Ranch. His journey from fearless athlete to wise companion embodies resilience and grace.</p>
+                        <p><strong>Nickname:</strong> Reformed Suicide Bomber<br>
+                        <strong>Past Life:</strong> Athletic jumper and daredevil<br>
+                        <strong>Current Role:</strong> The ranch's emotional anchor</p>
+                    </div>
+                </div>
+
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">🌸</div>
+                        <div class="horse-title-section">
+                            <h4>Kaya - The Loyal Shadow</h4>
+                            <p class="horse-summary">Pepper's daughter and the sweetest girl you'll ever meet.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <img src="../images/web/WhatsApp Image 2025-12-30 at 01.43.17.jpeg" alt="Kaya the Loyal Shadow" class="horse-image">
+                        <p>A surprise discovery that made family connections even more special—Kaya is Pepper's daughter, and the bond between them is unmistakable.</p>
+                        <p>She's often found waiting patiently by the fence for her mom, demonstrating the loyalty that earned her nickname. Her gentle nature and love of berries make her a ranch favorite.</p>
+                        <p><strong>Mother:</strong> Pepper<br>
+                        <strong>Favorite Treats:</strong> Berries<br>
+                        <strong>Special Talent:</strong> Hand-licking enthusiast<br>
+                        <strong>Personality:</strong> Sweet, patient, devoted</p>
+                    </div>
+                </div>
+
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">🐕</div>
+                        <div class="horse-title-section">
+                            <h4>Birk - The Lap Dog</h4>
+                            <p class="horse-summary">All 1,200lbs of this gentle giant thinks he's a Chihuahua.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <img src="../images/web/WhatsApp Image 2025-12-30 at 01.43.10 (1).jpeg" alt="Birk the Lap Dog" class="horse-image">
+                        <p>Birk hasn't gotten the memo that he's a massive horse. In his mind, he's a tiny lap dog who deserves all the cuddles and attention—and he won't take no for an answer.</p>
+                        <p>Though age has made him a bit stiff, his romantic spirit remains young. He's currently engaged in an ongoing (and unsuccessful) courtship of the beautiful Cheslatta, undeterred by her lack of interest.</p>
+                        <p><strong>Weight:</strong> 1,200 lbs<br>
+                        <strong>Self-Image:</strong> Small lap dog<br>
+                        <strong>Romantic Interest:</strong> Cheslatta (unrequited)<br>
+                        <strong>Personality:</strong> Affectionate, persistent, optimistic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="horse-group">
+            <h3>The "Moffatt" Crew & The "Brat"</h3>
+            <div class="horses-grid">
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">👑</div>
+                        <div class="horse-title-section">
+                            <h4>Aspen - The Only Child</h4>
+                            <p class="horse-summary">The "Princess of BC" with massive Main Character Energy.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <p>Being the only foal has its privileges, and Aspen has enjoyed every single one. She's been thoroughly spoiled, and she knows it—wearing her princess status like a crown.</p>
+                        <p>Every moment is Aspen's moment. Every pasture is her kingdom. Every human is her admiring subject. She doesn't just have Main Character Energy—she IS the main character, and everyone else is just living in her story.</p>
+                        <p><strong>Status:</strong> Only foal<br>
+                        <strong>Title:</strong> Princess of BC<br>
+                        <strong>Energy Level:</strong> Main Character (maximum)<br>
+                        <strong>Personality:</strong> Confident, pampered, dramatic</p>
+                    </div>
+                </div>
+
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">🤝</div>
+                        <div class="horse-title-section">
+                            <h4>Chevy - The Close-Talker</h4>
+                            <p class="horse-summary">The immature "Godfather" to Aspen with absolutely no concept of personal space.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <img src="../images/web/WhatsApp Image 2025-12-25 at 21.32.56.jpeg" alt="Chevy the Close-Talker" class="horse-image">
+                        <p>If personal space was currency, Chevy would be bankrupt. He believes the best distance from anyone—horse or human—is zero inches, preferably with his nose in your pocket.</p>
+                        <p>As Aspen's self-appointed guardian and companion, he takes his role seriously... in his own chaotic way. Between nipping butts to keep everyone in line and literally climbing into people's pockets, Chevy keeps ranch life interesting.</p>
+                        <p><strong>Role:</strong> Godfather to Aspen<br>
+                        <strong>Personal Space:</strong> What's that?<br>
+                        <strong>Habits:</strong> Butt-nipping, pocket-dwelling<br>
+                        <strong>Personality:</strong> Playful, invasive, loyal</p>
+                    </div>
+                </div>
+
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">🌟</div>
+                        <div class="horse-title-section">
+                            <h4>Cheslatta - The Wild Soul</h4>
+                            <p class="horse-summary">Aspen's mom and an uncracked code.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <img src="../images/web/WhatsApp Image 2025-12-25 at 21.32.55.jpeg" alt="Cheslatta the Wild Soul" class="horse-image">
+                        <p>Deep, quiet, and incredibly athletic, Cheslatta is a mystery wrapped in horsehair. While her daughter demands attention, Cheslatta observes the world with knowing eyes.</p>
+                        <p>She doesn't give her trust easily—it must be earned through patience and respect. Those who take the time discover a connection unlike any other. Even Birk's persistent romantic advances haven't swayed her independent spirit.</p>
+                        <p><strong>Daughter:</strong> Aspen<br>
+                        <strong>Admirer:</strong> Birk (interest not reciprocated)<br>
+                        <strong>Nature:</strong> Reserved, observant, mysterious<br>
+                        <strong>Personality:</strong> Athletic, deep, selective</p>
+                    </div>
+                </div>
+
+                <div class="horse-card">
+                    <div class="horse-header">
+                        <div class="horse-icon">🔍</div>
+                        <div class="horse-title-section">
+                            <h4>Gus - The Nosey Athlete</h4>
+                            <p class="horse-summary">The "Professional Investigator" of the herd.</p>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="horse-details">
+                        <p>Fast, athletic, and incredibly curious, Gus has made it his life's mission to know everything about everyone. If something is happening on the ranch, Gus is there—usually with his nose literally in the middle of it.</p>
+                        <p>His combination of speed and nosiness makes him the ranch's unofficial surveillance system. Nothing escapes his notice, from feeding schedules to secret snacks to who's friends with whom today.</p>
+                        <p><strong>Job Title:</strong> Professional Investigator<br>
+                        <strong>Skills:</strong> Speed, athletics, espionage<br>
+                        <strong>Hobbies:</strong> Everyone else's business<br>
+                        <strong>Personality:</strong> Curious, athletic, involved</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -520,6 +852,30 @@
             if (e.key === 'Escape') {
                 navMenu.classList.remove('active');
             }
+        });
+
+        // Horse card expand/collapse functionality
+        document.querySelectorAll('.horse-card').forEach(card => {
+            const header = card.querySelector('.horse-header');
+
+            header.addEventListener('click', function(e) {
+                // Toggle expanded class on the card
+                card.classList.toggle('expanded');
+                card.setAttribute('aria-expanded', card.classList.contains('expanded'));
+            });
+
+            // Make headers keyboard accessible
+            header.setAttribute('tabindex', '0');
+            header.setAttribute('role', 'button');
+            card.setAttribute('aria-expanded', 'false');
+
+            header.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.classList.toggle('expanded');
+                    card.setAttribute('aria-expanded', card.classList.contains('expanded'));
+                }
+            });
         });
     </script>
 </body>
