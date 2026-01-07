@@ -11,7 +11,9 @@ kickboxing-profile/
 │   └── styles.css          # All CSS styles
 ├── js/
 │   └── main.js             # JavaScript functionality
-├── images/                 # Original images (not used directly)
+├── images/
+│   ├── svg/
+│   │   └── timeline.svg    # Timeline graphic (loaded via JS)
 │   ├── web/                # Web-optimized images (used in site)
 │   └── thumbnails/         # Thumbnail previews
 ├── tests/                  # Playwright test files

@@ -94,111 +94,133 @@ window.printPortfolio = () => {
     window.print();
 };
 
+// Load external SVG and initialize timeline
+async function loadTimelineSvg() {
+    const container = document.getElementById('timelineSvgContainer');
+    if (!container) return;
+
+    try {
+        const response = await fetch('images/svg/timeline.svg');
+        const svgText = await response.text();
+        container.innerHTML = svgText;
+        initializeTimeline();
+    } catch (error) {
+        console.error('Failed to load timeline SVG:', error);
+    }
+}
+
 // Timeline Zoom functionality
-const timelineContainer = document.getElementById('timelineContainer');
-const timelineZoomOut = document.getElementById('timelineZoomOut');
-const timelineSectionAreas = document.querySelectorAll('.timeline-section-area');
-const timelineSvg = document.querySelector('.timeline-svg');
-const timelineNavPrev = document.getElementById('timelineNavPrev');
-const timelineNavNext = document.getElementById('timelineNavNext');
-let currentSection = 1;
-const totalSections = 3;
+function initializeTimeline() {
+    const timelineContainer = document.getElementById('timelineContainer');
+    const timelineZoomOut = document.getElementById('timelineZoomOut');
+    const timelineSectionAreas = document.querySelectorAll('.timeline-section-area');
+    const timelineSvg = document.querySelector('.timeline-svg');
+    const timelineNavPrev = document.getElementById('timelineNavPrev');
+    const timelineNavNext = document.getElementById('timelineNavNext');
+    let currentSection = 1;
+    const totalSections = 3;
 
-// Check if mobile screen
-function isMobile() {
-    return window.innerWidth <= 768;
-}
-
-function updateNavButtons() {
-    timelineNavPrev.disabled = currentSection <= 1;
-    timelineNavNext.disabled = currentSection >= totalSections;
-}
-
-function zoomToSection(sectionNum) {
-    currentSection = parseInt(sectionNum);
-    timelineContainer.classList.remove('zoom-section-1', 'zoom-section-2', 'zoom-section-3');
-    timelineContainer.classList.add('zoomed', `zoom-section-${sectionNum}`);
-    updateNavButtons();
-}
-
-function zoomOut() {
-    // On mobile, don't allow zoom out - keep one section visible
-    if (isMobile()) {
-        return;
+    // Check if mobile screen
+    function isMobile() {
+        return window.innerWidth <= 768;
     }
-    timelineContainer.classList.remove('zoomed', 'zoom-section-1', 'zoom-section-2', 'zoom-section-3');
-}
 
-// Auto-zoom to section 1 on mobile
-function initTimelineZoom() {
-    if (isMobile()) {
-        zoomToSection(1);
+    function updateNavButtons() {
+        timelineNavPrev.disabled = currentSection <= 1;
+        timelineNavNext.disabled = currentSection >= totalSections;
     }
-}
 
-// Initialize on load
-initTimelineZoom();
-
-// Re-initialize on resize
-window.addEventListener('resize', () => {
-    if (isMobile() && !timelineContainer.classList.contains('zoomed')) {
-        zoomToSection(1);
-    } else if (!isMobile() && timelineContainer.classList.contains('zoomed')) {
-        // Optional: zoom out when switching to desktop
-        // Uncomment the next line if you want this behavior
-        // zoomOut();
+    function zoomToSection(sectionNum) {
+        currentSection = parseInt(sectionNum);
+        timelineContainer.classList.remove('zoom-section-1', 'zoom-section-2', 'zoom-section-3');
+        timelineContainer.classList.add('zoomed', `zoom-section-${sectionNum}`);
+        updateNavButtons();
     }
-});
 
-timelineSectionAreas.forEach(section => {
-    section.addEventListener('click', (e) => {
-        // On mobile, don't allow clicking sections to zoom (already zoomed)
+    function zoomOut() {
+        // On mobile, don't allow zoom out - keep one section visible
         if (isMobile()) {
             return;
         }
-        e.stopPropagation();
-        const sectionNum = section.dataset.section;
-        zoomToSection(sectionNum);
+        timelineContainer.classList.remove('zoomed', 'zoom-section-1', 'zoom-section-2', 'zoom-section-3');
+    }
+
+    // Auto-zoom to section 1 on mobile
+    function initTimelineZoom() {
+        if (isMobile()) {
+            zoomToSection(1);
+        }
+    }
+
+    // Initialize on load
+    initTimelineZoom();
+
+    // Re-initialize on resize
+    window.addEventListener('resize', () => {
+        if (isMobile() && !timelineContainer.classList.contains('zoomed')) {
+            zoomToSection(1);
+        } else if (!isMobile() && timelineContainer.classList.contains('zoomed')) {
+            // Optional: zoom out when switching to desktop
+            // Uncomment the next line if you want this behavior
+            // zoomOut();
+        }
     });
-});
 
-timelineZoomOut.addEventListener('click', zoomOut);
+    timelineSectionAreas.forEach(section => {
+        section.addEventListener('click', (e) => {
+            // On mobile, don't allow clicking sections to zoom (already zoomed)
+            if (isMobile()) {
+                return;
+            }
+            e.stopPropagation();
+            const sectionNum = section.dataset.section;
+            zoomToSection(sectionNum);
+        });
+    });
 
-// Navigation arrows
-timelineNavPrev.addEventListener('click', () => {
-    if (currentSection > 1) {
-        zoomToSection(currentSection - 1);
+    timelineZoomOut.addEventListener('click', zoomOut);
+
+    // Navigation arrows
+    timelineNavPrev.addEventListener('click', () => {
+        if (currentSection > 1) {
+            zoomToSection(currentSection - 1);
+        }
+    });
+
+    timelineNavNext.addEventListener('click', () => {
+        if (currentSection < totalSections) {
+            zoomToSection(currentSection + 1);
+        }
+    });
+
+    // Click on SVG to zoom out when zoomed (disabled on mobile)
+    if (timelineSvg) {
+        timelineSvg.addEventListener('click', (e) => {
+            if (isMobile()) {
+                return; // Don't allow zoom out on mobile
+            }
+            if (timelineContainer.classList.contains('zoomed') && !e.target.closest('.timeline-section-area')) {
+                zoomOut();
+            }
+        });
     }
-});
 
-timelineNavNext.addEventListener('click', () => {
-    if (currentSection < totalSections) {
-        zoomToSection(currentSection + 1);
-    }
-});
+    // Keyboard navigation for timeline
+    document.addEventListener('keydown', (e) => {
+        if (!timelineContainer.classList.contains('zoomed')) return;
 
-// Click on SVG to zoom out when zoomed (disabled on mobile)
-timelineSvg.addEventListener('click', (e) => {
-    if (isMobile()) {
-        return; // Don't allow zoom out on mobile
-    }
-    if (timelineContainer.classList.contains('zoomed') && !e.target.closest('.timeline-section-area')) {
-        zoomOut();
-    }
-});
+        if (e.key === 'Escape') {
+            zoomOut();
+        } else if (e.key === 'ArrowLeft' && currentSection > 1) {
+            zoomToSection(currentSection - 1);
+        } else if (e.key === 'ArrowRight' && currentSection < totalSections) {
+            zoomToSection(currentSection + 1);
+        }
+    });
+}
 
-// Keyboard navigation for timeline
-document.addEventListener('keydown', (e) => {
-    if (!timelineContainer.classList.contains('zoomed')) return;
-
-    if (e.key === 'Escape') {
-        zoomOut();
-    } else if (e.key === 'ArrowLeft' && currentSection > 1) {
-        zoomToSection(currentSection - 1);
-    } else if (e.key === 'ArrowRight' && currentSection < totalSections) {
-        zoomToSection(currentSection + 1);
-    }
-});
+// Load the timeline SVG when DOM is ready
+loadTimelineSvg();
 
 // Achievement Modal functionality
 const achievementModal = document.getElementById('achievementModal');

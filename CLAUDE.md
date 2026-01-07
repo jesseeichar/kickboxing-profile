@@ -11,6 +11,7 @@ This is a static portfolio website for Eva Tschanz, a Swiss kickboxing champion.
 - **HTML**: `index.html` - Main page structure and content
 - **CSS**: `css/styles.css` - All styles extracted to separate file
 - **JavaScript**: `js/main.js` - All scripts extracted to separate file
+- **SVG**: `images/svg/timeline.svg` - Timeline graphic (loaded dynamically via JS)
 - **No build process**: Site can be served directly by any static file server
 - **Images**: Located in `images/` directory with web-optimized versions in `images/web/` and thumbnails in `images/thumbnails/`
 
