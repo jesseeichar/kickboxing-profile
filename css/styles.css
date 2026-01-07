@@ -1,13 +1,20 @@
 :root {
-    --black: #e7efff;
-    --dark: #e7efff;
-    --red: #6d7698;
-    --red-dark: #5a6380;
+    /* Background colors */
+    --bg-primary: #e7efff;      /* Light blue - main background */
+    --bg-secondary: #e7efff;    /* Light blue - section backgrounds */
+
+    /* Text colors */
+    --text-primary: #8B1E1E;    /* Dark red/maroon - main text */
+    --text-secondary: #8B1E1E;  /* Dark red/maroon - secondary text */
+    --text-dark: #1a1a1a;       /* Near black - dark text */
+
+    /* Accent colors */
+    --accent: #6d7698;          /* Slate blue - accent/highlights */
+    --accent-dark: #5a6380;     /* Darker slate - hover states */
+
+    /* Brand colors */
     --blue: #2563eb;
     --blue-dark: #1d4ed8;
-    --white: #8B1E1E;
-    --gray: #8B1E1E;
-    --gray-dark: #1a1a1a;
 }
 
 * {
@@ -22,14 +29,76 @@ html {
 
 body {
     font-family: 'Barlow', sans-serif;
-    background: var(--black);
-    color: var(--white);
+    background: var(--bg-primary);
+    color: var(--text-primary);
     overflow-x: hidden;
     line-height: 1.6;
 }
 
 img {
     border-radius: 3px;
+}
+
+/* ============================================
+   Reusable Image Hover Effects
+   ============================================ */
+
+/* Grayscale filter that removes on hover */
+.img-grayscale-hover {
+    filter: grayscale(30%);
+    transition: filter 0.3s ease;
+}
+
+.img-grayscale-hover:hover {
+    filter: grayscale(0%);
+}
+
+/* Grayscale filter with scale effect on hover */
+.img-grayscale-scale-hover {
+    filter: grayscale(30%);
+    transition: all 0.5s ease;
+}
+
+.img-grayscale-scale-hover:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* Zoom effect for gallery-style images */
+.img-zoom-hover {
+    transition: transform 0.6s ease;
+}
+
+.img-zoom-hover:hover {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   Reusable Link Hover Effects
+   ============================================ */
+
+/* Link that transitions to accent color on hover */
+.link-hover-accent {
+    transition: color 0.3s ease;
+}
+
+.link-hover-accent:hover {
+    color: var(--accent);
+}
+
+/* Arrow CTA link style (used for "→ Get in Touch" style links) */
+.link-cta-arrow {
+    display: inline-block;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.link-cta-arrow:hover {
+    color: var(--accent);
 }
 
 /* Typography */
@@ -80,7 +149,7 @@ nav.scrolled {
 .logo .swiss-cross::after {
     content: '';
     position: absolute;
-    background: var(--white);
+    background: var(--text-primary);
 }
 
 .logo .swiss-cross::before {
@@ -104,22 +173,18 @@ nav.scrolled {
 }
 
 .nav-links a {
-    color: var(--white);
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: 0.05em;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--red);
+    /* Hover effect via .link-hover-accent class in HTML */
 }
 
 .nav-cta {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: var(--red);
+    background: var(--accent);
     color: white;
     text-decoration: none;
     font-weight: 600;
@@ -130,7 +195,7 @@ nav.scrolled {
 }
 
 .nav-cta:hover {
-    background: var(--white);
+    background: var(--text-primary);
 }
 
 .menu-toggle {
@@ -140,7 +205,7 @@ nav.scrolled {
 .menu-toggle span {
     width: 25px;
     height: 2px;
-    background: var(--white);
+    background: var(--text-primary);
     transition: all 0.3s ease;
 }
 
@@ -178,22 +243,18 @@ nav.scrolled {
 .sidebar-nav a {
     font-family: 'Anton', sans-serif;
     font-size: 1.5rem;
-    color: var(--white);
+    color: var(--text-primary);
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     padding: 1rem 0;
-    border-bottom: 1px solid var(--gray-dark);
-    transition: color 0.3s ease;
-}
-
-.sidebar-nav a:hover {
-    color: var(--red);
+    border-bottom: 1px solid var(--text-dark);
+    /* Hover effect via .link-hover-accent class in HTML */
 }
 
 .sidebar-nav .sidebar-cta {
     margin-top: 2rem;
-    background: var(--red);
+    background: var(--accent);
     padding: 1rem 2rem;
     text-align: center;
     font-size: 1rem;
@@ -247,7 +308,7 @@ nav.scrolled {
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.2em;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 1.5rem;
     opacity: 0;
     animation: slideUp 0.8s ease 0.5s forwards;
@@ -256,7 +317,7 @@ nav.scrolled {
 .hero-tagline {
     font-size: 1.1rem;
     font-weight: 300;
-    color: var(--gray);
+    color: var(--text-secondary);
     max-width: 600px;
     line-height: 1.6;
     opacity: 0;
@@ -324,14 +385,14 @@ nav.scrolled {
 .hero-badge {
     font-size: 0.85rem;
     letter-spacing: 0.05em;
-    color: var(--white);
+    color: var(--text-primary);
     font-weight: 700;
 }
 
 .hero-cta {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background: var(--red);
+    background: var(--accent);
     color: white;
     text-decoration: none;
     font-weight: 600;
@@ -344,7 +405,7 @@ nav.scrolled {
 }
 
 .hero-cta:hover {
-    background: var(--white);
+    background: var(--text-primary);
 }
 
 .hero-image {
@@ -371,7 +432,7 @@ nav.scrolled {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to right, var(--black) 0%, transparent 30%);
+    background: linear-gradient(to right, var(--bg-primary) 0%, transparent 30%);
     z-index: 1;
 }
 
@@ -385,7 +446,7 @@ nav.scrolled {
     font-size: 0.75rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: var(--text-secondary);
     opacity: 0;
     animation: slideUp 0.8s ease 1.2s forwards;
 }
@@ -393,7 +454,7 @@ nav.scrolled {
 .scroll-line {
     width: 60px;
     height: 1px;
-    background: var(--gray);
+    background: var(--text-secondary);
     position: relative;
     overflow: hidden;
 }
@@ -403,7 +464,7 @@ nav.scrolled {
     position: absolute;
     width: 20px;
     height: 100%;
-    background: var(--red);
+    background: var(--accent);
     animation: scrollPulse 2s ease infinite;
 }
 
@@ -432,7 +493,7 @@ nav.scrolled {
 .content-section p {
     font-size: 1.1rem;
     font-weight: 300;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.8;
 }
@@ -456,7 +517,7 @@ nav.scrolled {
 .section-fullwidth p {
     font-size: 1.1rem;
     font-weight: 300;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.8;
 }
@@ -494,14 +555,14 @@ nav.scrolled {
 
 .timeline-path {
     fill: none;
-    stroke: var(--gray-dark);
+    stroke: var(--text-dark);
     stroke-width: 2;
     vector-effect: non-scaling-stroke;
 }
 
 .timeline-path-highlight {
     fill: none;
-    stroke: var(--red);
+    stroke: var(--accent);
     stroke-width: 2;
     vector-effect: non-scaling-stroke;
     stroke-dasharray: 1000;
@@ -532,18 +593,18 @@ nav.scrolled {
     font-size: 14px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    fill: var(--red);
+    fill: var(--accent);
 }
 
 .timeline-section-subtitle {
     font-size: 11px;
-    fill: var(--gray);
+    fill: var(--text-secondary);
 }
 
 /* Timeline points */
 .timeline-point-dot {
-    fill: var(--red);
-    stroke: var(--black);
+    fill: var(--accent);
+    stroke: var(--bg-primary);
     stroke-width: 2;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -553,34 +614,34 @@ nav.scrolled {
 
 .timeline-point-dot:hover {
     transform: scale(1.3);
-    filter: drop-shadow(0 0 8px var(--red));
+    filter: drop-shadow(0 0 8px var(--accent));
 }
 
 .timeline-point-dot.future {
     fill: transparent;
-    stroke: var(--red);
+    stroke: var(--accent);
     stroke-width: 2;
 }
 
 .timeline-point-dot.goal {
     fill: transparent;
-    stroke: var(--gray);
+    stroke: var(--text-secondary);
     stroke-width: 2;
 }
 
 .timeline-point-label {
     font-size: 11px;
-    fill: var(--white);
+    fill: var(--text-primary);
     font-weight: 500;
 }
 
 .timeline-point-year {
     font-size: 9px;
-    fill: var(--gray);
+    fill: var(--text-secondary);
 }
 
 .timeline-point-label.goal-label {
-    fill: var(--gray);
+    fill: var(--text-secondary);
 }
 
 /* Zoom controls */
@@ -590,7 +651,7 @@ nav.scrolled {
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.75rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     opacity: 1;
     transition: opacity 0.3s ease;
     pointer-events: none;
@@ -604,8 +665,8 @@ nav.scrolled {
     position: absolute;
     top: -3rem;
     right: 0;
-    background: var(--red);
-    color: var(--white);
+    background: var(--accent);
+    color: var(--text-primary);
     border: none;
     padding: 0.5rem 1rem;
     font-size: 0.75rem;
@@ -625,7 +686,7 @@ nav.scrolled {
 }
 
 .timeline-zoom-out:hover {
-    background: var(--red-dark);
+    background: var(--accent-dark);
 }
 
 /* Timeline navigation arrows */
@@ -633,8 +694,8 @@ nav.scrolled {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--red);
-    color: var(--white);
+    background: var(--accent);
+    color: var(--text-primary);
     border: none;
     width: 40px;
     height: 40px;
@@ -650,7 +711,7 @@ nav.scrolled {
 }
 
 .timeline-nav:hover {
-    background: var(--red-dark);
+    background: var(--accent-dark);
 }
 
 .timeline-nav:disabled {
@@ -692,7 +753,7 @@ nav.scrolled {
 
 .goal-items {
     font-size: 0.85rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.8;
 }
 
@@ -722,13 +783,13 @@ nav.scrolled {
 .about-icon {
     width: 60px;
     height: 60px;
-    background: var(--red);
+    background: var(--accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 2rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .about-icon svg {
@@ -741,7 +802,7 @@ nav.scrolled {
     font-weight: 600;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
@@ -752,7 +813,7 @@ nav.scrolled {
     content: '';
     width: 40px;
     height: 2px;
-    background: var(--red);
+    background: var(--accent);
 }
 
 .about-title {
@@ -763,7 +824,7 @@ nav.scrolled {
 .about-text {
     font-size: 1.2rem;
     font-weight: 300;
-    color: var(--gray);
+    color: var(--text-secondary);
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -776,19 +837,14 @@ nav.scrolled {
     gap: 3rem;
     align-items: start;
     padding-top: 1rem;
-    border-top: 1px solid var(--gray-dark);
+    border-top: 1px solid var(--text-dark);
 }
 
 .about-image img {
     width: 100%;
     aspect-ratio: 3/4;
     object-fit: cover;
-    filter: grayscale(30%);
-    transition: all 0.5s ease;
-}
-
-.about-image img:hover {
-    filter: grayscale(0%);
+    /* Hover effect via .img-grayscale-hover class in HTML */
 }
 
 .about-info {
@@ -812,7 +868,7 @@ nav.scrolled {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: var(--text-secondary);
 }
 
 .detail-value {
@@ -823,26 +879,17 @@ nav.scrolled {
 .about-cta {
     display: block;
     background: transparent;
-    color: #6d7698;
     padding: 1rem 0;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
     margin-top: 2rem;
     margin-left: 2rem;
-    transition: all 0.3s ease;
     border: none;
-}
-
-.about-cta:hover {
-    color: var(--red);
+    /* Uses .link-cta-arrow class for base styling and hover effect */
 }
 
 /* Values Section */
 .values {
     padding: 10rem 6rem;
-    background: var(--dark);
+    background: var(--bg-secondary);
 }
 
 .values-content {
@@ -874,7 +921,7 @@ nav.scrolled {
 .value-icon {
     width: 32px;
     height: 32px;
-    color: var(--white);
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 
@@ -887,12 +934,12 @@ nav.scrolled {
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .value-item p {
     font-size: 0.9rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -903,22 +950,15 @@ nav.scrolled {
 
 .values-text p {
     font-size: 1.1rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 2rem;
 }
 
 .values-link {
     display: inline-block;
-    color: var(--white);
-    text-decoration: none;
-    font-size: 1rem;
     font-weight: 400;
-    transition: color 0.3s ease;
-}
-
-.values-link:hover {
-    color: var(--red);
+    /* Uses .link-cta-arrow class for base styling and hover effect */
 }
 
 .values-image {
@@ -930,12 +970,7 @@ nav.scrolled {
     width: 100%;
     aspect-ratio: 4/3;
     object-fit: cover;
-    filter: grayscale(30%);
-    transition: filter 0.3s ease;
-}
-
-.values-image img:hover {
-    filter: grayscale(0%);
+    /* Hover effect via .img-grayscale-hover class in HTML */
 }
 
 /* Kickboxing Section */
@@ -960,7 +995,7 @@ nav.scrolled {
 .kickboxing-text {
     font-size: 1.1rem;
     font-weight: 300;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.8;
 }
@@ -973,13 +1008,7 @@ nav.scrolled {
     width: 100%;
     aspect-ratio: 3/4;
     object-fit: cover;
-    filter: grayscale(30%);
-    transition: all 0.5s ease;
-}
-
-.kickboxing-image img:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
+    /* Hover effect via .img-grayscale-scale-hover class in HTML */
 }
 
 /* Education Section */
@@ -1004,7 +1033,7 @@ nav.scrolled {
 .education-text {
     font-size: 1.1rem;
     font-weight: 300;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
     line-height: 1.8;
 }
@@ -1017,19 +1046,13 @@ nav.scrolled {
     width: 100%;
     aspect-ratio: 3/4;
     object-fit: cover;
-    filter: grayscale(30%);
-    transition: all 0.5s ease;
-}
-
-.education-image img:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
+    /* Hover effect via .img-grayscale-scale-hover class in HTML */
 }
 
 /* Achievements Section */
 .achievements {
     padding: 6rem 0;
-    background: var(--dark);
+    background: var(--bg-secondary);
     position: relative;
     overflow: hidden;
 }
@@ -1074,7 +1097,7 @@ nav.scrolled {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 0.75rem;
 }
 
@@ -1086,31 +1109,31 @@ nav.scrolled {
 
 .achievement-card .card-location {
     font-size: 0.85rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 1rem;
 }
 
 .achievement-card .card-result {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 0.75rem;
 }
 
 .achievement-card .card-preview {
     font-size: 0.85rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.6;
     flex-grow: 1;
 }
 
 .achievement-card .card-preview strong {
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .achievement-card .card-expand {
     font-size: 0.75rem;
-    color: var(--red);
+    color: var(--accent);
     margin-top: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -1137,12 +1160,12 @@ nav.scrolled {
 }
 
 .modal-content {
-    background: var(--dark);
+    background: var(--bg-secondary);
     max-width: 600px;
     width: 100%;
     padding: 3rem;
     position: relative;
-    border: 1px solid var(--red);
+    border: 1px solid var(--accent);
     transform: scale(0.9);
     transition: transform 0.3s ease;
 }
@@ -1157,7 +1180,7 @@ nav.scrolled {
     right: 1rem;
     background: none;
     border: none;
-    color: var(--white);
+    color: var(--text-primary);
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
@@ -1165,14 +1188,14 @@ nav.scrolled {
 }
 
 .modal-close:hover {
-    color: var(--red);
+    color: var(--accent);
 }
 
 .modal-category {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 1rem;
 }
 
@@ -1184,32 +1207,32 @@ nav.scrolled {
 
 .modal-location {
     font-size: 1rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }
 
 .modal-result {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--red);
+    color: var(--accent);
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--gray-dark);
+    border-bottom: 1px solid var(--text-dark);
 }
 
 .modal-description {
     font-size: 1rem;
     line-height: 1.8;
-    color: var(--gray);
+    color: var(--text-secondary);
     white-space: pre-line;
 }
 
 .modal-quote {
     font-style: italic;
-    border-left: 3px solid var(--red);
+    border-left: 3px solid var(--accent);
     padding-left: 1.5rem;
     margin-top: 1.5rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 /* Gallery Section */
@@ -1238,16 +1261,16 @@ nav.scrolled {
     width: 50px;
     height: 50px;
     background: transparent;
-    border: 1px solid var(--gray-dark);
-    color: var(--white);
+    border: 1px solid var(--text-dark);
+    color: var(--text-primary);
     cursor: pointer;
     font-size: 1.2rem;
     transition: all 0.3s ease;
 }
 
 .gallery-nav button:hover {
-    background: var(--red);
-    border-color: var(--red);
+    background: var(--accent);
+    border-color: var(--accent);
 }
 
 .gallery-grid {
@@ -1272,11 +1295,7 @@ nav.scrolled {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.1);
+    /* Hover effect via .img-zoom-hover class in HTML */
 }
 
 .gallery-item::after {
@@ -1295,7 +1314,7 @@ nav.scrolled {
 /* Sponsorship Section */
 .sponsorship {
     padding: 10rem 6rem 2rem;
-    background: var(--dark);
+    background: var(--bg-secondary);
     position: relative;
     overflow: hidden;
 }
@@ -1318,7 +1337,7 @@ nav.scrolled {
     font-size: 1.1rem;
     font-weight: 300;
     margin-bottom: 2.5rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.7;
 }
 
@@ -1329,41 +1348,31 @@ nav.scrolled {
 
 .sponsor-feature {
     padding: 1.5rem 0;
-    border-bottom: 1px solid var(--gray-dark);
+    border-bottom: 1px solid var(--text-dark);
 }
 
 .sponsor-feature:first-child {
-    border-top: 1px solid var(--gray-dark);
+    border-top: 1px solid var(--text-dark);
 }
 
 .sponsor-feature h3 {
     font-size: 1.1rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .sponsor-feature p {
     font-size: 0.95rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.5;
 }
 
 .sponsor-cta {
-    display: inline-block;
-    color: #6d7698;
     padding: 1rem 0;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
     margin-top: 2rem;
     margin-left: 2rem;
-    transition: all 0.3s ease;
-}
-
-.sponsor-cta:hover {
-    color: var(--red);
+    /* Uses .link-cta-arrow class for base styling and hover effect */
 }
 
 .sponsorship-image img {
@@ -1375,7 +1384,7 @@ nav.scrolled {
 /* Budget Section */
 .budget {
     padding: 10rem 6rem;
-    background: var(--black);
+    background: var(--bg-primary);
 }
 
 .budget-header {
@@ -1389,7 +1398,7 @@ nav.scrolled {
 }
 
 .budget-header p {
-    color: var(--gray);
+    color: var(--text-secondary);
     font-size: 1.1rem;
     max-width: 600px;
     margin: 0 auto;
@@ -1426,18 +1435,18 @@ nav.scrolled {
     font-size: 1.1rem;
     font-weight: 400;
     margin-bottom: 0.25rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .budget-item-info p {
     font-size: 0.9rem;
-    color: var(--gray);
+    color: var(--text-secondary);
 }
 
 .budget-item-amount {
     font-size: 1.2rem;
     font-weight: 500;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .budget-total {
@@ -1446,19 +1455,19 @@ nav.scrolled {
     align-items: center;
     padding: 2rem 0;
     margin-top: 1rem;
-    border-top: 2px solid var(--red);
+    border-top: 2px solid var(--accent);
 }
 
 .budget-total h3 {
     font-size: 1.3rem;
     font-weight: 500;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .budget-total-amount {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--red);
+    color: var(--accent);
 }
 
 .budget-summary {
@@ -1470,27 +1479,17 @@ nav.scrolled {
 .budget-summary h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .budget-summary p {
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.8;
     margin-bottom: 1.5rem;
 }
 
 .budget-cta {
-    display: inline-block;
-    color: #6d7698;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    transition: all 0.3s ease;
-}
-
-.budget-cta:hover {
-    color: var(--red);
+    /* Uses .link-cta-arrow class for base styling and hover effect */
 }
 
 /* Partners Section */
@@ -1574,11 +1573,11 @@ nav.scrolled {
 .partner-modal-content h3 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .partner-modal-content .partner-description {
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 2rem;
     font-size: 1.1rem;
@@ -1586,7 +1585,7 @@ nav.scrolled {
 
 .partner-modal-content .partner-role {
     font-size: 0.9rem;
-    color: var(--red);
+    color: var(--accent);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1606,18 +1605,18 @@ nav.scrolled {
 .partner-content h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .partner-description {
-    color: var(--gray);
+    color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
 
 .partner-role {
     font-size: 0.85rem;
-    color: var(--red);
+    color: var(--accent);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1649,7 +1648,7 @@ nav.scrolled {
 
 .contact-info p {
     font-size: 1.1rem;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 0;
 }
 
@@ -1664,9 +1663,9 @@ nav.scrolled {
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
-    background: var(--dark);
+    background: var(--bg-secondary);
     text-decoration: none;
-    color: var(--white);
+    color: var(--text-primary);
     transition: all 0.3s ease;
 }
 
@@ -1676,18 +1675,18 @@ nav.scrolled {
 }
 
 .contact-link:hover .contact-link-icon {
-    background: var(--red-dark);
+    background: var(--accent-dark);
 }
 
 .contact-link-icon {
     width: 36px;
     height: 36px;
-    background: var(--red);
+    background: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1rem;
-    color: var(--white);
+    color: var(--text-primary);
     border-radius: 8px;
     flex-shrink: 0;
 }
@@ -1705,7 +1704,7 @@ nav.scrolled {
     font-size: 0.7rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 0.2rem;
 }
 
@@ -1715,7 +1714,7 @@ nav.scrolled {
 }
 
 .contact-form {
-    background: var(--dark);
+    background: var(--bg-secondary);
     padding: 3rem;
 }
 
@@ -1733,7 +1732,7 @@ nav.scrolled {
     font-size: 0.75rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--gray);
+    color: var(--text-secondary);
     margin-bottom: 0.5rem;
 }
 
@@ -1741,9 +1740,9 @@ nav.scrolled {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    background: var(--black);
-    border: 1px solid var(--gray-dark);
-    color: var(--white);
+    background: var(--bg-primary);
+    border: 1px solid var(--text-dark);
+    color: var(--text-primary);
     font-family: inherit;
     font-size: 1rem;
     transition: border-color 0.3s ease;
@@ -1752,7 +1751,7 @@ nav.scrolled {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--red);
+    border-color: var(--accent);
 }
 
 .form-group textarea {
@@ -1763,9 +1762,9 @@ nav.scrolled {
 .form-submit {
     width: 100%;
     padding: 1.25rem;
-    background: var(--red);
+    background: var(--accent);
     border: none;
-    color: var(--white);
+    color: var(--text-primary);
     font-family: inherit;
     font-weight: 700;
     font-size: 0.9rem;
@@ -1776,7 +1775,7 @@ nav.scrolled {
 }
 
 .form-submit:hover {
-    background: var(--red-dark);
+    background: var(--accent-dark);
 }
 
 /* Footer */
@@ -1802,7 +1801,7 @@ footer {
 
 .footer-text {
     font-size: 0.85rem;
-    color: var(--gray);
+    color: var(--text-secondary);
 }
 
 .footer-logo-img {
@@ -1820,14 +1819,10 @@ footer {
 }
 
 .footer-nav a {
-    color: var(--white);
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.3s ease;
-}
-
-.footer-nav a:hover {
-    color: var(--red);
+    /* Hover effect via .link-hover-accent class in HTML */
 }
 
 .footer-social {
@@ -1839,7 +1834,7 @@ footer {
     font-size: 0.9rem;
     letter-spacing: 0.15em;
     margin-bottom: 1rem;
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .footer-social-icons {
@@ -1848,14 +1843,10 @@ footer {
 }
 
 .footer-social-icons a {
-    color: var(--white);
-    transition: color 0.3s ease;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
-}
-
-.footer-social-icons a:hover {
-    color: var(--red);
+    /* Hover effect via .link-hover-accent class in HTML */
 }
 
 .footer-social-icons svg {
@@ -2196,7 +2187,7 @@ footer {
     }
 
     .hero-image::before {
-        background: linear-gradient(to right, var(--black) 0%, rgba(10,10,10,0.7) 100%);
+        background: linear-gradient(to right, var(--bg-primary) 0%, rgba(10,10,10,0.7) 100%);
     }
 
     .about {
@@ -2375,7 +2366,7 @@ footer {
     .hero-image::before {
         background: linear-gradient(
             to top,
-            var(--black) 0%,
+            var(--bg-primary) 0%,
             rgba(10,10,10,0.85) 40%,
             rgba(10,10,10,0.4) 100%
         );
@@ -2508,7 +2499,7 @@ footer {
     .value-item {
         padding: 1.5rem;
         border-right: none;
-        border-bottom: 1px solid var(--gray-dark);
+        border-bottom: 1px solid var(--text-dark);
     }
 
     .value-item:last-child {

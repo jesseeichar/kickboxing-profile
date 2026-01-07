@@ -1,317 +1,410 @@
-// Navbar scroll effect
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+/**
+ * Eva Tschanz Portfolio - Main JavaScript
+ * Organized into namespaces using IIFE pattern
+ */
+(function() {
+    'use strict';
 
-// Mobile Menu Toggle
-const menuToggle = document.getElementById('menuToggle');
-const sidebarNav = document.getElementById('sidebarNav');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
+    // ============================================
+    // Modal Utilities
+    // ============================================
+    const Modal = {
+        /**
+         * Close a modal by removing 'active' class and restoring body scroll
+         * @param {HTMLElement} modalElement - The modal element to close
+         */
+        close(modalElement) {
+            if (modalElement) {
+                modalElement.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        },
 
-function openSidebar() {
-    menuToggle.classList.add('active');
-    sidebarNav.classList.add('active');
-    sidebarOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+        /**
+         * Open a modal by adding 'active' class and preventing body scroll
+         * @param {HTMLElement} modalElement - The modal element to open
+         */
+        open(modalElement) {
+            if (modalElement) {
+                modalElement.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        },
 
-function closeSidebar() {
-    menuToggle.classList.remove('active');
-    sidebarNav.classList.remove('active');
-    sidebarOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-}
+        /**
+         * Set up standard modal behavior (close on backdrop click, close button)
+         * @param {HTMLElement} modalElement - The modal element
+         * @param {Object} options - Configuration options
+         * @param {HTMLElement} options.closeButton - Optional close button element
+         * @param {HTMLElement} options.contentElement - Optional content element (clicks won't close modal)
+         */
+        setup(modalElement, options = {}) {
+            if (!modalElement) return;
 
-menuToggle.addEventListener('click', () => {
-    if (sidebarNav.classList.contains('active')) {
-        closeSidebar();
-    } else {
-        openSidebar();
-    }
-});
-
-// Close sidebar when clicking overlay
-sidebarOverlay.addEventListener('click', closeSidebar);
-
-// Close sidebar when clicking a link
-sidebarNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeSidebar);
-});
-
-// Close sidebar on escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sidebarNav.classList.contains('active')) {
-        closeSidebar();
-    }
-});
-
-// Reveal on scroll
-const reveals = document.querySelectorAll('.reveal');
-
-const revealOnScroll = () => {
-    reveals.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (elementTop < windowHeight - 100) {
-            element.classList.add('active');
-        }
-    });
-};
-
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll(); // Initial check
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const href = this.getAttribute('href');
-        const target = document.querySelector(href);
-        if (target) {
-            // Get navbar height
-            const navbarHeight = navbar.offsetHeight;
-            // Get target position
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-            // Scroll to position minus navbar height
-            window.scrollTo({
-                top: targetPosition - navbarHeight,
-                behavior: 'smooth'
+            // Close on backdrop click
+            modalElement.addEventListener('click', (e) => {
+                if (e.target === modalElement) {
+                    Modal.close(modalElement);
+                }
             });
-            // Update URL hash without jumping
-            history.pushState(null, null, href);
-        }
-    });
-});
 
-// Print button functionality (optional - can be triggered via Ctrl+P)
-window.printPortfolio = () => {
-    window.print();
-};
-
-// Load external SVG and initialize timeline
-async function loadTimelineSvg() {
-    const container = document.getElementById('timelineSvgContainer');
-    if (!container) return;
-
-    try {
-        const response = await fetch('images/svg/timeline.svg');
-        const svgText = await response.text();
-        container.innerHTML = svgText;
-        initializeTimeline();
-    } catch (error) {
-        console.error('Failed to load timeline SVG:', error);
-    }
-}
-
-// Timeline Zoom functionality
-function initializeTimeline() {
-    const timelineContainer = document.getElementById('timelineContainer');
-    const timelineZoomOut = document.getElementById('timelineZoomOut');
-    const timelineSectionAreas = document.querySelectorAll('.timeline-section-area');
-    const timelineSvg = document.querySelector('.timeline-svg');
-    const timelineNavPrev = document.getElementById('timelineNavPrev');
-    const timelineNavNext = document.getElementById('timelineNavNext');
-    let currentSection = 1;
-    const totalSections = 3;
-
-    // Check if mobile screen
-    function isMobile() {
-        return window.innerWidth <= 768;
-    }
-
-    function updateNavButtons() {
-        timelineNavPrev.disabled = currentSection <= 1;
-        timelineNavNext.disabled = currentSection >= totalSections;
-    }
-
-    function zoomToSection(sectionNum) {
-        currentSection = parseInt(sectionNum);
-        timelineContainer.classList.remove('zoom-section-1', 'zoom-section-2', 'zoom-section-3');
-        timelineContainer.classList.add('zoomed', `zoom-section-${sectionNum}`);
-        updateNavButtons();
-    }
-
-    function zoomOut() {
-        // On mobile, don't allow zoom out - keep one section visible
-        if (isMobile()) {
-            return;
-        }
-        timelineContainer.classList.remove('zoomed', 'zoom-section-1', 'zoom-section-2', 'zoom-section-3');
-    }
-
-    // Auto-zoom to section 1 on mobile
-    function initTimelineZoom() {
-        if (isMobile()) {
-            zoomToSection(1);
-        }
-    }
-
-    // Initialize on load
-    initTimelineZoom();
-
-    // Re-initialize on resize
-    window.addEventListener('resize', () => {
-        if (isMobile() && !timelineContainer.classList.contains('zoomed')) {
-            zoomToSection(1);
-        } else if (!isMobile() && timelineContainer.classList.contains('zoomed')) {
-            // Optional: zoom out when switching to desktop
-            // Uncomment the next line if you want this behavior
-            // zoomOut();
-        }
-    });
-
-    timelineSectionAreas.forEach(section => {
-        section.addEventListener('click', (e) => {
-            // On mobile, don't allow clicking sections to zoom (already zoomed)
-            if (isMobile()) {
-                return;
+            // Close button
+            if (options.closeButton) {
+                options.closeButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    Modal.close(modalElement);
+                });
             }
-            e.stopPropagation();
-            const sectionNum = section.dataset.section;
-            zoomToSection(sectionNum);
-        });
-    });
 
-    timelineZoomOut.addEventListener('click', zoomOut);
-
-    // Navigation arrows
-    timelineNavPrev.addEventListener('click', () => {
-        if (currentSection > 1) {
-            zoomToSection(currentSection - 1);
-        }
-    });
-
-    timelineNavNext.addEventListener('click', () => {
-        if (currentSection < totalSections) {
-            zoomToSection(currentSection + 1);
-        }
-    });
-
-    // Click on SVG to zoom out when zoomed (disabled on mobile)
-    if (timelineSvg) {
-        timelineSvg.addEventListener('click', (e) => {
-            if (isMobile()) {
-                return; // Don't allow zoom out on mobile
+            // Prevent clicks on content from closing modal
+            if (options.contentElement) {
+                options.contentElement.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
             }
-            if (timelineContainer.classList.contains('zoomed') && !e.target.closest('.timeline-section-area')) {
-                zoomOut();
+        }
+    };
+
+    // ============================================
+    // Navigation Module
+    // ============================================
+    const Navigation = {
+        navbar: document.getElementById('navbar'),
+        menuToggle: document.getElementById('menuToggle'),
+        sidebarNav: document.getElementById('sidebarNav'),
+        sidebarOverlay: document.getElementById('sidebarOverlay'),
+        lastScrolled: false,
+
+        init() {
+            this.initNavbarScroll();
+            this.initSidebar();
+            this.initSmoothScroll();
+        },
+
+        initNavbarScroll() {
+            window.addEventListener('scroll', () => {
+                const isScrolled = window.scrollY > 100;
+                if (isScrolled !== this.lastScrolled) {
+                    this.navbar.classList.toggle('scrolled', isScrolled);
+                    this.lastScrolled = isScrolled;
+                }
+            });
+        },
+
+        initSidebar() {
+            this.menuToggle.addEventListener('click', () => {
+                if (this.sidebarNav.classList.contains('active')) {
+                    this.closeSidebar();
+                } else {
+                    this.openSidebar();
+                }
+            });
+
+            // Close sidebar when clicking overlay
+            this.sidebarOverlay.addEventListener('click', () => this.closeSidebar());
+
+            // Close sidebar when clicking a link
+            this.sidebarNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => this.closeSidebar());
+            });
+        },
+
+        openSidebar() {
+            this.menuToggle.classList.add('active');
+            this.sidebarNav.classList.add('active');
+            this.sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        },
+
+        closeSidebar() {
+            this.menuToggle.classList.remove('active');
+            this.sidebarNav.classList.remove('active');
+            this.sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        },
+
+        initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const href = anchor.getAttribute('href');
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const navbarHeight = this.navbar.offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                        window.scrollTo({
+                            top: targetPosition - navbarHeight,
+                            behavior: 'smooth'
+                        });
+                        history.pushState(null, null, href);
+                    }
+                });
+            });
+        },
+
+        isSidebarActive() {
+            return this.sidebarNav && this.sidebarNav.classList.contains('active');
+        }
+    };
+
+    // ============================================
+    // Scroll Effects Module
+    // ============================================
+    const ScrollEffects = {
+        init() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Stop observing once revealed (one-time animation)
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // Trigger when element is 100px from bottom of viewport
+                rootMargin: '0px 0px -100px 0px',
+                threshold: 0
+            });
+
+            reveals.forEach(element => revealObserver.observe(element));
+        }
+    };
+
+    // ============================================
+    // Timeline Module
+    // ============================================
+    const Timeline = {
+        container: null,
+        currentSection: 1,
+        totalSections: 3,
+
+        async init() {
+            const svgContainer = document.getElementById('timelineSvgContainer');
+            if (!svgContainer) return;
+
+            try {
+                const response = await fetch('images/svg/timeline.svg');
+                const svgText = await response.text();
+                svgContainer.innerHTML = svgText;
+                this.setupInteractions();
+            } catch (error) {
+                console.error('Failed to load timeline SVG:', error);
             }
-        });
-    }
+        },
 
-    // Keyboard navigation for timeline
-    document.addEventListener('keydown', (e) => {
-        if (!timelineContainer.classList.contains('zoomed')) return;
+        setupInteractions() {
+            this.container = document.getElementById('timelineContainer');
+            const zoomOutBtn = document.getElementById('timelineZoomOut');
+            const sectionAreas = document.querySelectorAll('.timeline-section-area');
+            const svg = document.querySelector('.timeline-svg');
+            const navPrev = document.getElementById('timelineNavPrev');
+            const navNext = document.getElementById('timelineNavNext');
 
-        if (e.key === 'Escape') {
-            zoomOut();
-        } else if (e.key === 'ArrowLeft' && currentSection > 1) {
-            zoomToSection(currentSection - 1);
-        } else if (e.key === 'ArrowRight' && currentSection < totalSections) {
-            zoomToSection(currentSection + 1);
+            // Initialize zoom state for mobile
+            if (this.isMobile()) {
+                this.zoomToSection(1);
+            }
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (this.isMobile() && !this.container.classList.contains('zoomed')) {
+                    this.zoomToSection(1);
+                }
+            });
+
+            // Section click handlers
+            sectionAreas.forEach(section => {
+                section.addEventListener('click', (e) => {
+                    if (this.isMobile()) return;
+                    e.stopPropagation();
+                    this.zoomToSection(section.dataset.section);
+                });
+            });
+
+            // Zoom controls
+            zoomOutBtn.addEventListener('click', () => this.zoomOut());
+
+            navPrev.addEventListener('click', () => {
+                if (this.currentSection > 1) {
+                    this.zoomToSection(this.currentSection - 1);
+                }
+            });
+
+            navNext.addEventListener('click', () => {
+                if (this.currentSection < this.totalSections) {
+                    this.zoomToSection(this.currentSection + 1);
+                }
+            });
+
+            // Click on SVG to zoom out
+            if (svg) {
+                svg.addEventListener('click', (e) => {
+                    if (this.isMobile()) return;
+                    if (this.container.classList.contains('zoomed') && !e.target.closest('.timeline-section-area')) {
+                        this.zoomOut();
+                    }
+                });
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!this.container.classList.contains('zoomed')) return;
+
+                if (e.key === 'ArrowLeft' && this.currentSection > 1) {
+                    this.zoomToSection(this.currentSection - 1);
+                } else if (e.key === 'ArrowRight' && this.currentSection < this.totalSections) {
+                    this.zoomToSection(this.currentSection + 1);
+                }
+            });
+        },
+
+        isMobile() {
+            return window.innerWidth <= 768;
+        },
+
+        zoomToSection(sectionNum) {
+            this.currentSection = parseInt(sectionNum, 10);
+            this.container.classList.remove('zoom-section-1', 'zoom-section-2', 'zoom-section-3');
+            this.container.classList.add('zoomed', `zoom-section-${sectionNum}`);
+            this.updateNavButtons();
+        },
+
+        zoomOut() {
+            if (this.isMobile()) return;
+            this.container.classList.remove('zoomed', 'zoom-section-1', 'zoom-section-2', 'zoom-section-3');
+        },
+
+        updateNavButtons() {
+            const navPrev = document.getElementById('timelineNavPrev');
+            const navNext = document.getElementById('timelineNavNext');
+            navPrev.disabled = this.currentSection <= 1;
+            navNext.disabled = this.currentSection >= this.totalSections;
+        },
+
+        isZoomed() {
+            return this.container && this.container.classList.contains('zoomed');
         }
-    });
-}
+    };
 
-// Load the timeline SVG when DOM is ready
-loadTimelineSvg();
+    // ============================================
+    // Achievement Modal Module
+    // ============================================
+    const AchievementModal = {
+        modal: document.getElementById('achievementModal'),
 
-// Achievement Modal functionality
-const achievementModal = document.getElementById('achievementModal');
-const modalClose = document.getElementById('modalClose');
-const achievementCards = document.querySelectorAll('.achievement-card');
+        init() {
+            const closeBtn = document.getElementById('modalClose');
+            const carousel = document.querySelector('.achievements-carousel');
 
-achievementCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const category = card.dataset.category;
-        const title = card.dataset.title;
-        const location = card.dataset.location;
-        const result = card.dataset.result;
-        const description = card.dataset.description;
-        const quote = card.dataset.quote;
+            Modal.setup(this.modal, { closeButton: closeBtn });
 
-        document.getElementById('modalCategory').textContent = category;
-        document.getElementById('modalTitle').textContent = title;
-        document.getElementById('modalLocation').textContent = location;
-        document.getElementById('modalResult').textContent = result;
-        document.getElementById('modalDescription').textContent = description;
+            // Event delegation for card clicks
+            if (carousel) {
+                carousel.addEventListener('click', (e) => {
+                    const card = e.target.closest('.achievement-card');
+                    if (!card) return;
 
-        const quoteEl = document.getElementById('modalQuote');
-        if (quote) {
-            quoteEl.textContent = '"' + quote + '"';
-            quoteEl.style.display = 'block';
-        } else {
-            quoteEl.style.display = 'none';
+                    document.getElementById('modalCategory').textContent = card.dataset.category;
+                    document.getElementById('modalTitle').textContent = card.dataset.title;
+                    document.getElementById('modalLocation').textContent = card.dataset.location;
+                    document.getElementById('modalResult').textContent = card.dataset.result;
+                    document.getElementById('modalDescription').textContent = card.dataset.description;
+
+                    const quoteEl = document.getElementById('modalQuote');
+                    if (card.dataset.quote) {
+                        quoteEl.textContent = '"' + card.dataset.quote + '"';
+                        quoteEl.style.display = 'block';
+                    } else {
+                        quoteEl.style.display = 'none';
+                    }
+
+                    Modal.open(this.modal);
+                });
+            }
+        },
+
+        isActive() {
+            return this.modal && this.modal.classList.contains('active');
         }
+    };
 
-        achievementModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-});
+    // ============================================
+    // Partner Modal Module
+    // ============================================
+    const PartnerModal = {
+        modal: document.getElementById('partnerModal'),
+        content: document.getElementById('partnerModalContent'),
 
-modalClose.addEventListener('click', () => {
-    achievementModal.classList.remove('active');
-    document.body.style.overflow = '';
-});
+        init() {
+            const closeBtn = document.querySelector('.partner-modal-close');
+            const grid = document.querySelector('.partners-grid');
 
-achievementModal.addEventListener('click', (e) => {
-    if (e.target === achievementModal) {
-        achievementModal.classList.remove('active');
-        document.body.style.overflow = '';
+            Modal.setup(this.modal, {
+                closeButton: closeBtn,
+                contentElement: this.content
+            });
+
+            // Event delegation for card clicks
+            if (grid) {
+                grid.addEventListener('click', (e) => {
+                    const card = e.target.closest('.partner-card');
+                    if (!card) return;
+
+                    const cardClone = card.cloneNode(true);
+                    this.content.innerHTML = '';
+                    this.content.appendChild(cardClone);
+                    Modal.open(this.modal);
+                });
+            }
+        },
+
+        isActive() {
+            return this.modal && this.modal.classList.contains('active');
+        }
+    };
+
+    // ============================================
+    // Keyboard Handler Module
+    // ============================================
+    const KeyboardHandler = {
+        init() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key !== 'Escape') return;
+
+                // Check modals in order of priority
+                if (AchievementModal.isActive()) {
+                    Modal.close(AchievementModal.modal);
+                } else if (PartnerModal.isActive()) {
+                    Modal.close(PartnerModal.modal);
+                } else if (Navigation.isSidebarActive()) {
+                    Navigation.closeSidebar();
+                } else if (Timeline.isZoomed()) {
+                    Timeline.zoomOut();
+                }
+            });
+        }
+    };
+
+    // ============================================
+    // Initialize All Modules
+    // ============================================
+    function init() {
+        Navigation.init();
+        ScrollEffects.init();
+        Timeline.init();
+        AchievementModal.init();
+        PartnerModal.init();
+        KeyboardHandler.init();
     }
-});
 
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && achievementModal.classList.contains('active')) {
-        achievementModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
+    // Run initialization
+    init();
 
-// Partner Card Modal
-const partnerModal = document.getElementById('partnerModal');
-const partnerModalContent = document.getElementById('partnerModalContent');
-const partnerCards = document.querySelectorAll('.partner-card');
-const partnerModalClose = document.querySelector('.partner-modal-close');
+    // ============================================
+    // Public API (exposed to global scope)
+    // ============================================
+    window.printPortfolio = () => window.print();
 
-partnerCards.forEach(card => {
-    card.addEventListener('click', () => {
-        // Clone the card content
-        const cardClone = card.cloneNode(true);
-        partnerModalContent.innerHTML = '';
-        partnerModalContent.appendChild(cardClone);
-
-        partnerModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-});
-
-partnerModal.addEventListener('click', (e) => {
-    if (e.target === partnerModal) {
-        partnerModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
-
-partnerModalContent.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
-
-partnerModalClose.addEventListener('click', (e) => {
-    e.stopPropagation();
-    partnerModal.classList.remove('active');
-    document.body.style.overflow = '';
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && partnerModal.classList.contains('active')) {
-        partnerModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});
+})();
